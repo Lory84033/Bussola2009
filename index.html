@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Bussola 2009 ✦ Assistente</title>
+
+<style>
+  /* ============================================================
+     STILE "AERO" (Windows Vista / Web 2.0, circa 2009):
+     gradienti lucidi, vetro, angoli arrotondati, ombre morbide.
+     Tutto in un unico file: nessuna dipendenza esterna di stile.
+     ============================================================ */
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #16324a;
+    /* sfondo blu vetro, tipico Aero */
+    background: radial-gradient(ellipse at 50% -10%, #eaf7ff 0%, #bfe3fb 35%, #6fb6e8 70%, #2f7cc1 100%);
+    min-height: 100vh;
+  }
+
+  /* Barra del titolo in stile "vetro" con riflesso */
+  .titlebar {
+    position: relative;
+    text-align: center;
+    padding: 18px 10px 22px;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+  .titlebar::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 55%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+  .titlebar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  .titlebar .sub {
+    margin: 4px 0 0;
+    font-size: 0.82rem;
+    opacity: 0.95;
+  }
+
+  /* Tab lucide in stile "bottoni Aero" */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 0 10px 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab {
+    flex: 0 0 auto;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: bold;
+    color: #1c4d7c;
+    border: 1px solid #8fc3ea;
+    background: linear-gradient(180deg, #ffffff 0%, #dff1fd 45%, #b7dffa 50%, #8fc9ec 100%);
+    box-shadow: 0 2px 4px rgba(0,40,80,0.25), inset 0 1px 0 rgba(255,255,255,0.9);
+    white-space: nowrap;
+  }
+  .tab:active { filter: brightness(0.95); }
+  .tab.is-active {
+    color: #fff;
+    border-color: #1c5f9e;
+    background: linear-gradient(180deg, #6cc0ff 0%, #2f8fdb 45%, #1668ac 50%, #0d4a82 100%);
+    box-shadow: 0 2px 6px rgba(0,30,60,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  /* Contenitore principale */
+  .wrap { padding: 0 12px 40px; max-width: 480px; margin: 0 auto; }
+
+  /* Pannello "vetro" tipo Web 2.0: card bianca lucida, bordi arrotondati */
+  .glass {
+    background: linear-gradient(180deg, #ffffff 0%, #f3faff 100%);
+    border: 1px solid #a9d2ef;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 10px rgba(10,50,90,0.25), inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+  .glass h2 {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    color: #0d4a82;
+  }
+  .glass p.lede {
+    margin: 0 0 12px;
+    font-size: 0.86rem;
+    color: #4a6d8a;
+  }
+
+  .panel { display: none; }
+  .panel.is-active { display: block; }
+
+  /* Pulsante grande "Aero" lucido (verde tipo Web 2.0, o blu principale) */
+  .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 13px 10px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+    border: 1px solid #1c5f9e;
+    background: linear-gradient(180deg, #7fd0ff 0%, #2f8fdb 45%, #1668ac 50%, #0d4a82 100%);
+    box-shadow: 0 3px 6px rgba(0,30,60,0.35), inset 0 1px 0 rgba(255,255,255,0.65);
+    margin: 6px 0;
+  }
+  .btn:active { filter: brightness(0.92); transform: translateY(1px); }
+  .btn.green {
+    border-color: #3f7d1c;
+    background: linear-gradient(180deg, #c8f27f 0%, #8fce2f 45%, #5f9e16 50%, #3f6a0c 100%);
+  }
+  .btn.red {
+    border-color: #821001;
+    background: linear-gradient(180deg, #ff9d7f 0%, #db4b2f 45%, #ac1c0d 50%, #821001 100%);
+  }
+  .btn:disabled { opacity: 0.6; }
+  .btn-row { display: flex; gap: 8px; }
+  .btn-row .btn { margin: 6px 0; }
+
+  /* Chip di scelta (tipo di luogo, umore) - stile bottone lucido piccolo */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .chip {
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #1c4d7c;
+    border: 1px solid #8fc3ea;
+    background: linear-gradient(180deg, #ffffff 0%, #dff1fd 45%, #b7dffa 50%, #8fc9ec 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+  .chip.is-active {
+    color: #fff;
+    background: linear-gradient(180deg, #ffd27f 0%, #f5a623 45%, #d1830c 50%, #a56600 100%);
+    border-color: #a56600;
+  }
+
+  /* Righe di risultato: piccole card lucide */
+  .result {
+    background: linear-gradient(180deg, #ffffff, #eaf5fd);
+    border: 1px solid #bcdcf3;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(10,50,90,0.15);
+    font-size: 0.88rem;
+  }
+  .result b { color: #0d4a82; }
+  .result .meta { color: #5a7d99; font-size: 0.8rem; }
+  .result a {
+    display: inline-block;
+    margin-top: 6px;
+    margin-right: 10px;
+    color: #0d6ab5;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .result a:active { opacity: 0.7; }
+
+  .status { font-size: 0.85rem; color: #4a6d8a; margin: 8px 0; }
+  .status.err { color: #b13d1c; font-weight: bold; }
+
+  input[type="search"], input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 1px solid #8fc3ea;
+    background: linear-gradient(180deg, #ffffff, #eef8ff);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,40,80,0.15);
+    font-family: inherit;
+  }
+  label.field-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: bold;
+    color: #0d4a82;
+    margin: 10px 0 4px;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #2b587d;
+    padding: 6px 20px 26px;
+    opacity: 0.85;
+  }
+
+  /* -------- Visualizzatore "Wikipedia stile 2009" -------- */
+  .wikiLinkBtn {
+    background: none; border: none; padding: 0; margin: 0;
+    font: inherit; color: #0d6ab5; font-weight: bold;
+    cursor: pointer; text-align: left; text-decoration: underline;
+  }
+  .wikiLinkBtn:active { opacity: 0.7; }
+  .wiki-back {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #1c4d7c;
+    border: 1px solid #8fc3ea;
+    background: linear-gradient(180deg, #ffffff 0%, #dff1fd 45%, #b7dffa 50%, #8fc9ec 100%);
+    cursor: pointer;
+  }
+  .wiki2009 {
+    background: #fff;
+    border: 1px solid #a2a9b1;
+    border-radius: 2px;
+    padding: 14px 16px;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #202122;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  }
+  .wiki2009-head {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-bottom: 3px double #a2a9b1;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+  .wiki2009-logo { font-size: 1.35rem; font-weight: bold; letter-spacing: 0.5px; }
+  .wiki2009-tagline { font-size: 0.72rem; font-style: italic; color: #54595d; }
+  .wiki2009 h1 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+    font-size: 1.55rem;
+    border-bottom: 1px solid #a2a9b1;
+    padding-bottom: 6px;
+    margin: 0 0 10px;
+  }
+  .wiki2009 p { font-size: 0.95rem; line-height: 1.65; margin: 0 0 12px; }
+  .wiki2009 a { color: #0645ad; text-decoration: none; }
+  .wiki2009 a:hover { text-decoration: underline; }
+  .wiki2009-thumb {
+    float: right; max-width: 40%; margin: 0 0 10px 12px;
+    border: 1px solid #c8ccd1; padding: 4px; background: #f8f9fa;
+  }
+  .wiki2009-catbar {
+    clear: both;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-top: 1px solid #eaecf0;
+    background: #f8f9fa;
+    font-size: 0.78rem;
+    color: #54595d;
+    border-radius: 2px;
+  }
+
+  /* -------- Gadget meteo, stile sidebar di Vista -------- */
+  .weather-widget {
+    margin-top: 12px;
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    background: linear-gradient(180deg, #4d97e8 0%, #1c5f9e 60%, #0d3a66 100%);
+    box-shadow: 0 4px 10px rgba(10,40,80,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .weather-widget .city { font-size: 1.05rem; font-weight: bold; }
+  .weather-widget .icon { font-size: 2.6rem; line-height: 1; margin: 4px 0; }
+  .weather-widget .temp { font-size: 2.6rem; font-weight: bold; margin: 2px 0; }
+  .weather-widget .desc { font-size: 0.85rem; opacity: 0.95; margin: 2px 0; }
+  .weather-forecast { display: flex; gap: 8px; margin-top: 10px; }
+  .weather-day {
+    flex: 1; text-align: center;
+    background: linear-gradient(180deg, #eaf5fd, #cfe8fb);
+    border: 1px solid #a9d2ef; border-radius: 10px;
+    padding: 8px 4px; font-size: 0.76rem; color: #0d4a82;
+  }
+  .weather-day .wd-icon { font-size: 1.3rem; }
+
+  /* -------- Appunti in stile post-it -------- */
+  #notepadArea {
+    background: linear-gradient(180deg, #fffbd6, #fff4a3);
+    border: 1px solid #e0c94a;
+    box-shadow: inset 0 1px 3px rgba(120,100,0,0.25), 0 2px 6px rgba(0,0,0,0.15);
+    font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+    color: #5a4a00;
+  }
+</style>
+</head>
+<body>
+
+<div class="titlebar">
+  <h1>✦ Bussola ✦</h1>
+  <p class="sub" id="greeting">Assistente veloce — nessuna installazione</p>
+</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab is-active" data-p="vicino">📍 Vicino</button>
+  <button class="tab" data-p="battute">☺ Battute</button>
+  <button class="tab" data-p="oggi">📅 Oggi</button>
+  <button class="tab" data-p="musica">♪ Musica</button>
+  <button class="tab" data-p="shazam">🎤 Shazam</button>
+  <button class="tab" data-p="meteo">🌤 Meteo</button>
+  <button class="tab" data-p="cerca">🔍 Cerca</button>
+  <button class="tab" data-p="assistente">🤖 Assistente</button>
+  <button class="tab" data-p="traduttore">🌍 Traduttore</button>
+  <button class="tab" data-p="appunti">📝 Appunti</button>
+  <button class="tab" data-p="account">🔐 Account</button>
+  <button class="tab" data-p="impostazioni">⚙ Opzioni</button>
+</div>
+
+<div class="wrap">
+
+  <!-- LUOGHI VICINI -->
+  <div class="panel is-active" id="p-vicino">
+    <div class="glass">
+      <h2>Cosa cerchi qui vicino?</h2>
+      <p class="lede">Tocca una categoria, poi premi il pulsante: userò il GPS del telefono.</p>
+      <div class="chips" id="chipsPlace">
+        <button class="chip is-active" data-v="bancomat">Bancomat</button>
+        <button class="chip" data-v="ristorante">Ristorante</button>
+        <button class="chip" data-v="farmacia">Farmacia</button>
+        <button class="chip" data-v="bar">Bar</button>
+        <button class="chip" data-v="supermercato">Supermercato</button>
+        <button class="chip" data-v="distributore">Benzina</button>
+      </div>
+      <button class="btn" id="btnNearby">📍 Trova il più vicino</button>
+      <p class="status" id="nearbyStatus"></p>
+      <div id="nearbyList"></div>
+    </div>
+  </div>
+
+  <!-- BATTUTE -->
+  <div class="panel" id="p-battute">
+    <div class="glass">
+      <h2>Una battuta al volo</h2>
+      <p class="lede">Generata sul momento, mescolando personaggi e situazioni.</p>
+      <button class="btn green" id="btnJoke">☺ Raccontamene una</button>
+      <div class="result" id="jokeBox" style="display:none; margin-top:12px;">
+        <p id="jokeSetup" style="font-weight:bold; margin:0 0 6px;"></p>
+        <p id="jokePunch" style="color:#0d4a82; margin:0;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OGGI -->
+  <div class="panel" id="p-oggi">
+    <div class="glass">
+      <h2>Il calendario di oggi</h2>
+      <p class="lede" id="todayDate">—</p>
+      <div class="result">
+        <b>Onomastico:</b> <span id="todayName">caricamento…</span>
+      </div>
+      <div id="todayEvents"><p class="status">Caricamento eventi storici…</p></div>
+    </div>
+  </div>
+
+  <!-- MUSICA -->
+  <div class="panel" id="p-musica">
+    <div class="glass">
+      <h2>Cosa ascoltare</h2>
+      <p class="lede">Scegli l'umore: ti do subito i link diretti.</p>
+      <div class="chips" id="chipsMood">
+        <button class="chip is-active" data-v="energico">Energico</button>
+        <button class="chip" data-v="rilassato">Rilassato</button>
+        <button class="chip" data-v="allegro">Allegro</button>
+        <button class="chip" data-v="malinconico">Malinconico</button>
+      </div>
+      <button class="btn" id="btnMusic">♪ Suggerisci brani</button>
+      <div id="musicList" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- SHAZAM-STYLE: RICONOSCITORE MUSICALE -->
+  <div class="panel" id="p-shazam">
+    <div class="glass">
+      <h2>🎤 Riconosci una canzone</h2>
+      <p class="lede">Avvicina il telefono alla musica e premi Ascolta: registro qualche secondo di audio e provo a riconoscere il brano.</p>
+      <button class="btn green" id="btnShazamListen">🎤 Ascolta e riconosci</button>
+      <p class="status" id="shazamStatus"></p>
+      <div id="shazamResult"></div>
+      <p class="lede" style="margin-top:10px; font-size:0.74rem;">Serve un token gratuito AudD: inseriscilo in ⚙ Opzioni.</p>
+    </div>
+  </div>
+
+  <!-- METEO -->
+  <div class="panel" id="p-meteo">
+    <div class="glass">
+      <h2>🌤 Meteo</h2>
+      <p class="lede">Come un gadget della sidebar di Vista, ma vero.</p>
+      <input type="search" id="weatherCityInput" placeholder="Nome città (vuoto = posizione attuale)" />
+      <div class="btn-row">
+        <button class="btn" id="btnWeatherSearch">🔍 Cerca città</button>
+        <button class="btn" id="btnWeatherGPS">📍 Usa GPS</button>
+      </div>
+      <p class="status" id="weatherStatus"></p>
+      <div id="weatherWidget"></div>
+      <div id="weatherForecast"></div>
+    </div>
+  </div>
+
+  <!-- CERCA (con visualizzatore Wikipedia stile 2009) -->
+  <div class="panel" id="p-cerca">
+    <div class="glass">
+      <div id="searchListView">
+        <h2>Cerca sul web</h2>
+        <p class="lede">Risultati da Wikipedia in tempo reale. Tocca un titolo per aprirlo qui dentro.</p>
+        <form id="searchForm">
+          <input type="search" id="searchInput" placeholder="Cosa vuoi sapere?" required />
+          <button class="btn" type="submit">🔍 Cerca</button>
+        </form>
+        <p class="status" id="searchStatus"></p>
+        <div id="searchList"></div>
+      </div>
+      <div id="wikiArticleView" style="display:none;">
+        <button class="wiki-back" id="btnWikiBack">← Torna ai risultati</button>
+        <div class="wiki2009" id="wikiArticleContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSISTENTE — prompt libero, intelligente quanto basta -->
+  <div class="panel" id="p-assistente">
+    <div class="glass">
+      <div id="assistViewChat">
+        <h2>🤖 Chiedimi qualcosa</h2>
+        <p class="lede">Scrivi una domanda tipo "dove si trova il Colosseo" o "chi è Leonardo da Vinci": capisco cosa cerchi e ti apro subito la voce.</p>
+        <form id="assistForm">
+          <input type="search" id="assistInput" placeholder="Fai una domanda…" required />
+          <button class="btn" type="submit">🤖 Chiedi</button>
+        </form>
+        <p class="status" id="assistStatus"></p>
+        <div id="assistResultList"></div>
+
+        <h2 style="margin-top:18px;">🕘 Cronologia domande</h2>
+        <p class="lede">Le tue ultime domande, salvate su questo telefono<span id="assistCloudNote"></span>.</p>
+        <div id="assistHistoryList"><p class="status">Nessuna domanda salvata finora.</p></div>
+        <button class="btn" id="btnDownloadHistory">⬇️ Scarica cronologia (.txt)</button>
+        <button class="btn red" id="btnClearHistory">🗑 Svuota cronologia</button>
+      </div>
+      <div id="assistViewArticle" style="display:none;">
+        <button class="wiki-back" id="btnAssistBack">← Torna all'assistente</button>
+        <div class="wiki2009" id="assistArticleContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRADUTTORE -->
+  <div class="panel" id="p-traduttore">
+    <div class="glass">
+      <h2>🌍 Traduttore rapido</h2>
+      <p class="lede">Scrivi un testo, scegli le lingue e traduci al volo.</p>
+      <label class="field-label">Da</label>
+      <div class="chips" id="chipsLangFrom">
+        <button class="chip is-active" data-v="it">IT</button>
+        <button class="chip" data-v="en">EN</button>
+        <button class="chip" data-v="es">ES</button>
+        <button class="chip" data-v="fr">FR</button>
+        <button class="chip" data-v="de">DE</button>
+      </div>
+      <label class="field-label">A</label>
+      <div class="chips" id="chipsLangTo">
+        <button class="chip" data-v="it">IT</button>
+        <button class="chip is-active" data-v="en">EN</button>
+        <button class="chip" data-v="es">ES</button>
+        <button class="chip" data-v="fr">FR</button>
+        <button class="chip" data-v="de">DE</button>
+      </div>
+      <textarea id="translateInput" rows="4" placeholder="Scrivi qui..."></textarea>
+      <button class="btn" id="btnTranslate">🌍 Traduci</button>
+      <p class="status" id="translateStatus"></p>
+      <div class="result" id="translateResult" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- APPUNTI -->
+  <div class="panel" id="p-appunti">
+    <div class="glass">
+      <h2>📝 Appunti veloci</h2>
+      <p class="lede">Come un post-it digitale, salvato solo in questo browser.</p>
+      <textarea id="notepadArea" rows="8" placeholder="Scrivi un promemoria…"></textarea>
+      <div class="btn-row">
+        <button class="btn green" id="btnSaveNote">💾 Salva</button>
+        <button class="btn red" id="btnClearNote">🗑 Cancella</button>
+      </div>
+      <p class="status" id="noteStatus"></p>
+    </div>
+  </div>
+
+  <!-- ACCOUNT — registrazione/accesso tramite Firebase Authentication -->
+  <div class="panel" id="p-account">
+    <div class="glass">
+      <h2>🔐 Account</h2>
+
+      <div id="accountNotConfigured" style="display:none;">
+        <p class="lede">Questa funzione non è ancora collegata a un servizio account. Per attivarla:</p>
+        <ol style="font-size:0.85rem; color:#4a6d8a; padding-left:18px; margin:0 0 10px;">
+          <li>Vai su <a href="https://console.firebase.google.com" target="_blank" style="color:#0d6ab5;">console.firebase.google.com</a> e crea un progetto gratuito (nome a piacere).</li>
+          <li>Nel menu "Authentication" → "Sign-in method", attiva "Email/Password".</li>
+          <li>In "Impostazioni progetto" → "Le tue app", crea un'app Web e copia l'oggetto <code>firebaseConfig</code>.</li>
+          <li>Incolla i valori nella costante <code>FIREBASE_CONFIG</code> all'inizio dello script di questo file.</li>
+        </ol>
+        <p class="status" style="font-size:0.78rem;">Quelle chiavi sono pubbliche per design: è normale che compaiano nel codice del sito.</p>
+      </div>
+
+      <div id="accountConfigured" style="display:none;">
+        <div id="accountLoggedOut">
+          <p class="lede">Crea un account o accedi con nome utente e password.</p>
+          <div class="chips" id="chipsAuthMode">
+            <button class="chip is-active" data-v="login">Accedi</button>
+            <button class="chip" data-v="register">Registrati</button>
+          </div>
+          <input type="text" id="authUsername" placeholder="Nome utente" autocomplete="username" />
+          <input type="password" id="authPassword" placeholder="Password (min. 6 caratteri)" autocomplete="current-password" />
+          <button class="btn" id="btnAuthSubmit">🔐 Accedi</button>
+          <p class="status" id="authStatus"></p>
+        </div>
+        <div id="accountLoggedIn" style="display:none;">
+          <div class="result">
+            <b>Bentornato, <span id="accountUsername"></span>!</b><br>
+            <span class="meta">Sei connesso con il tuo account.</span>
+          </div>
+          <button class="btn red" id="btnLogout">🚪 Esci</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPOSTAZIONI -->
+  <div class="panel" id="p-impostazioni">
+    <div class="glass">
+      <h2>⚙ Impostazioni</h2>
+      <p class="lede">Tutto resta su questo telefono, nel browser: nessun account, nessun server.</p>
+
+      <label class="field-label">Città predefinita per il meteo</label>
+      <input type="text" id="setCity" placeholder="Es. Roma" />
+
+      <label class="field-label">Unità di temperatura</label>
+      <div class="chips" id="chipsTempUnit">
+        <button class="chip is-active" data-v="C">°C Celsius</button>
+        <button class="chip" data-v="F">°F Fahrenheit</button>
+      </div>
+
+      <label class="field-label">Token API AudD (per Shazam)</label>
+      <input type="text" id="setAuddToken" placeholder="Incolla qui il tuo token" autocomplete="off" />
+      <p class="status" style="font-size:0.74rem; margin-top:-4px;">Gratuito su <a href="https://dashboard.audd.io" target="_blank" style="color:#0d6ab5;">dashboard.audd.io</a>.</p>
+
+      <button class="btn" id="btnSaveSettings">💾 Salva impostazioni</button>
+      <p class="status" id="settingsStatus"></p>
+
+      <button class="btn red" id="btnClearAll" style="margin-top:16px;">🗑 Cancella tutti i dati salvati</button>
+    </div>
+  </div>
+
+</div>
+
+<p class="footer-note">Nessun download di app: gira tutto nel browser. Impostazioni e appunti restano solo su questo telefono; gli account (se configurati) usano Firebase Authentication.</p>
+
+<!-- SDK Firebase (solo Authentication) — nessuna chiave segreta: queste sono chiavi pubbliche di configurazione -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<script>
+/* ============================================================
+   Un solo file, zero dipendenze, zero backend: ogni funzione
+   chiama direttamente API pubbliche gratuite dal browser.
+   ============================================================ */
+
+// ---------- Navigazione a schede ----------
+document.querySelectorAll('.tab').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.tab').forEach(function (b) { b.classList.remove('is-active'); });
+    document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+    document.getElementById('p-' + btn.dataset.p).classList.add('is-active');
+  });
+});
+
+// ---------- Saluto in base all'ora ----------
+(function () {
+  var h = new Date().getHours();
+  var msg = h < 12 ? 'Buongiorno! Da dove iniziamo?' :
+            h < 18 ? 'Buon pomeriggio! Dimmi cosa ti serve.' :
+                     'Buonasera! Eccomi qui.';
+  document.getElementById('greeting').textContent = msg;
+})();
+
+function escapeHtml(s) {
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ---------- Impostazioni condivise (localStorage) ----------
+function loadSettings() {
+  try {
+    return JSON.parse(localStorage.getItem('bussola2009_settings')) || {};
+  } catch (e) {
+    return {};
+  }
+}
+function saveSettingsObj(obj) {
+  localStorage.setItem('bussola2009_settings', JSON.stringify(obj));
+}
+
+// ============================================================
+// ACCOUNT — Firebase Authentication (username + password)
+// ============================================================
+// Compila questi valori con quelli del TUO progetto Firebase gratuito
+// (console.firebase.google.com → Impostazioni progetto → Le tue app).
+// Sono chiavi PUBBLICHE di configurazione: è normale che stiano nel codice.
+var FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDqIbG4C9_B2l6WvPjduJEOp9E-OtUuA8E",
+  authDomain: "assistente-ffe11.firebaseapp.com",
+  projectId: "assistente-ffe11",
+  appId: "1:1093499265024:web:550bc5411826a669aa38e5"
+};
+var AUTH_EMAIL_DOMAIN = '@bussola2009.local'; // trasforma lo username in una "email" interna per Firebase
+
+// Esposti fuori dalla IIFE così le altre sezioni (Appunti, Assistente) possono
+// salvare/leggere i dati sull'account quando l'utente è collegato.
+var cloudUser = null;   // oggetto Firebase user, o null se non collegato
+var cloudDb = null;     // riferimento Firestore, valido solo se configurato
+
+(function () {
+  var isConfigured = !!(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.projectId);
+  document.getElementById('accountNotConfigured').style.display = isConfigured ? 'none' : 'block';
+  document.getElementById('accountConfigured').style.display = isConfigured ? 'block' : 'none';
+  if (!isConfigured) return;
+
+  firebase.initializeApp(FIREBASE_CONFIG);
+  var auth = firebase.auth();
+  cloudDb = firebase.firestore();
+
+  // ---- FIX del blocco infinito su "Registrazione/Accesso in corso…" ----
+  // Causa più comune: la persistenza di Firebase (IndexedDB) non riesce a
+  // inizializzarsi (es. file aperto come file:// invece che http/https,
+  // modalità privata del browser, o storage di terze parti bloccato) e la
+  // promise di login/registrazione non si risolve né fallisce mai.
+  // Fix: impostiamo esplicitamente la persistenza con un fallback a cascata,
+  // e mettiamo comunque un timeout di sicurezza sul login/registrazione così
+  // l'utente vede sempre un messaggio, invece di un caricamento infinito.
+  var persistenceReady = auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .catch(function () {
+      return auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+    })
+    .catch(function () {
+      return auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+    })
+    .catch(function () { /* proseguiamo comunque: peggio che vada, niente persistenza */ });
+
+  var authMode = 'login';
+  document.querySelectorAll('#chipsAuthMode .chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      document.querySelectorAll('#chipsAuthMode .chip').forEach(function (x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
+      authMode = c.dataset.v;
+      document.getElementById('btnAuthSubmit').textContent = authMode === 'login' ? '🔐 Accedi' : '✏️ Registrati';
+      document.getElementById('authStatus').textContent = '';
+    });
+  });
+
+  function usernameToEmail(u) {
+    return u.trim().toLowerCase().replace(/[^a-z0-9._-]/g, '') + AUTH_EMAIL_DOMAIN;
+  }
+
+  function translateAuthError(code) {
+    var map = {
+      'auth/email-already-in-use': 'Nome utente già in uso.',
+      'auth/invalid-email': 'Nome utente non valido.',
+      'auth/weak-password': 'Password troppo corta (minimo 6 caratteri).',
+      'auth/user-not-found': 'Nome utente non trovato.',
+      'auth/wrong-password': 'Password errata.',
+      'auth/invalid-credential': 'Nome utente o password errati.',
+      'auth/too-many-requests': 'Troppi tentativi: riprova tra poco.'
+    };
+    return map[code] || 'Si è verificato un errore. Riprova.';
+  }
+
+  document.getElementById('btnAuthSubmit').addEventListener('click', function () {
+    var username = document.getElementById('authUsername').value.trim();
+    var password = document.getElementById('authPassword').value;
+    var statusEl = document.getElementById('authStatus');
+    var btn = document.getElementById('btnAuthSubmit');
+
+    if (!username || !password) {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Compila nome utente e password.';
+      return;
+    }
+    var email = usernameToEmail(username);
+    statusEl.className = 'status';
+    statusEl.textContent = authMode === 'login' ? 'Accesso in corso…' : 'Registrazione in corso…';
+    btn.disabled = true;
+
+    // Timeout di sicurezza: se dopo 12 secondi non è arrivata né una risposta
+    // positiva né un errore, avvisiamo l'utente invece di lasciarlo bloccato.
+    var timedOut = false;
+    var safetyTimer = setTimeout(function () {
+      timedOut = true;
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Il servizio account non risponde. Se hai aperto questo file direttamente dal telefono (file://), caricalo invece su un sito (es. GitHub Pages) e riprova da lì.';
+      btn.disabled = false;
+    }, 12000);
+
+    persistenceReady.then(function () {
+      var action = authMode === 'login'
+        ? auth.signInWithEmailAndPassword(email, password)
+        : auth.createUserWithEmailAndPassword(email, password);
+
+      return action.then(function (cred) {
+        if (authMode === 'register') {
+          return cred.user.updateProfile({ displayName: username });
+        }
+      });
+    }).then(function () {
+      if (timedOut) return;
+      clearTimeout(safetyTimer);
+      statusEl.textContent = authMode === 'register' ? 'Registrato con successo ✓' : '';
+      btn.disabled = false;
+    }).catch(function (err) {
+      if (timedOut) return;
+      clearTimeout(safetyTimer);
+      statusEl.className = 'status err';
+      statusEl.textContent = translateAuthError(err.code);
+      btn.disabled = false;
+    });
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', function () {
+    auth.signOut();
+  });
+
+  auth.onAuthStateChanged(function (user) {
+    var loggedOutEl = document.getElementById('accountLoggedOut');
+    var loggedInEl = document.getElementById('accountLoggedIn');
+    cloudUser = user;
+    if (user) {
+      loggedOutEl.style.display = 'none';
+      loggedInEl.style.display = 'block';
+      var shown = user.displayName || (user.email || '').replace(AUTH_EMAIL_DOMAIN, '');
+      document.getElementById('accountUsername').textContent = shown;
+      if (typeof onCloudLogin === 'function') onCloudLogin(user);
+    } else {
+      loggedOutEl.style.display = 'block';
+      loggedInEl.style.display = 'none';
+      document.getElementById('authUsername').value = '';
+      document.getElementById('authPassword').value = '';
+      if (typeof onCloudLogout === 'function') onCloudLogout();
+    }
+  });
+})();
+
+// ============================================================
+// SALVATAGGIO SU ACCOUNT — appunti e cronologia domande su Firestore
+// ============================================================
+// Un solo documento per utente: users/{uid}, con i campi "notes" e "history".
+function cloudDocRef() {
+  if (!cloudDb || !cloudUser) return null;
+  return cloudDb.collection('users').doc(cloudUser.uid);
+}
+
+function cloudSave(fields) {
+  var ref = cloudDocRef();
+  if (!ref) return Promise.resolve();
+  return ref.set(fields, { merge: true }).catch(function (err) {
+    console.error('Salvataggio su account non riuscito:', err);
+  });
+}
+
+function onCloudLogin(user) {
+  var ref = cloudDocRef();
+  if (!ref) return;
+  ref.get().then(function (doc) {
+    var data = doc.exists ? doc.data() : {};
+    // Appunti: se sul cloud c'è già qualcosa, sostituisce quello locale.
+    if (typeof data.notes === 'string') {
+      var area = document.getElementById('notepadArea');
+      area.value = data.notes;
+      localStorage.setItem('bussola2009_notes', data.notes);
+    }
+    // Cronologia: uniamo quella cloud con quella locale, senza duplicati, più recenti prima.
+    var cloudHistory = Array.isArray(data.history) ? data.history : [];
+    var localHistory = loadHistory();
+    var merged = cloudHistory.concat(localHistory).filter(function (item, idx, arr) {
+      return arr.findIndex(function (o) { return o.q === item.q && o.t === item.t; }) === idx;
+    }).sort(function (a, b) { return b.t - a.t; }).slice(0, 200);
+    saveHistory(merged, true);
+    document.getElementById('assistCloudNote').textContent = ' e sul tuo account';
+  }).catch(function (err) {
+    console.error('Lettura dati account non riuscita:', err);
+  });
+}
+
+function onCloudLogout() {
+  var el = document.getElementById('assistCloudNote');
+  if (el) el.textContent = '';
+}
+
+// ============================================================
+// 1) LUOGHI VICINI — Geolocation + Overpass API (OpenStreetMap)
+// ============================================================
+var placeType = 'bancomat';
+var OVERPASS_TAGS = {
+  bancomat: 'amenity=atm', ristorante: 'amenity=restaurant', farmacia: 'amenity=pharmacy',
+  bar: 'amenity=bar', supermercato: 'shop=supermarket', distributore: 'amenity=fuel'
+};
+
+document.querySelectorAll('#chipsPlace .chip').forEach(function (c) {
+  c.addEventListener('click', function () {
+    document.querySelectorAll('#chipsPlace .chip').forEach(function (x) { x.classList.remove('is-active'); });
+    c.classList.add('is-active');
+    placeType = c.dataset.v;
+  });
+});
+
+function distanceKm(lat1, lon1, lat2, lon2) {
+  var R = 6371, toRad = function (d) { return d * Math.PI / 180; };
+  var dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+  var a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+document.getElementById('btnNearby').addEventListener('click', function () {
+  var statusEl = document.getElementById('nearbyStatus');
+  var listEl = document.getElementById('nearbyList');
+  listEl.innerHTML = '';
+  statusEl.className = 'status';
+  statusEl.textContent = 'Individuazione posizione…';
+
+  if (!navigator.geolocation) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Il browser non supporta il GPS.';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(function (pos) {
+    var lat = pos.coords.latitude, lon = pos.coords.longitude;
+    statusEl.textContent = 'Ricerca in corso…';
+
+    var tag = OVERPASS_TAGS[placeType].split('=');
+    var query = '[out:json][timeout:15];(node["' + tag[0] + '"="' + tag[1] + '"](around:2000,' + lat + ',' + lon + ');way["' + tag[0] + '"="' + tag[1] + '"](around:2000,' + lat + ',' + lon + '););out center 15;';
+
+    fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: query })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var places = (data.elements || []).map(function (el) {
+          var la = el.lat || (el.center && el.center.lat);
+          var lo = el.lon || (el.center && el.center.lon);
+          if (!la || !lo) return null;
+          return {
+            name: (el.tags && el.tags.name) || 'Senza nome',
+            lat: la, lon: lo,
+            dist: distanceKm(lat, lon, la, lo)
+          };
+        }).filter(Boolean).sort(function (a, b) { return a.dist - b.dist; });
+
+        if (places.length === 0) {
+          statusEl.textContent = 'Nessun risultato entro 2 km.';
+          return;
+        }
+        statusEl.textContent = places.length + ' risultati trovati:';
+        listEl.innerHTML = places.slice(0, 8).map(function (p) {
+          return '<div class="result"><b>' + escapeHtml(p.name) + '</b><br>' +
+            '<span class="meta">' + p.dist.toFixed(2) + ' km</span><br>' +
+            '<a href="https://www.openstreetmap.org/directions?to=' + p.lat + '%2C' + p.lon + '" target="_blank">Indicazioni →</a></div>';
+        }).join('');
+      })
+      .catch(function () {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Servizio non raggiungibile in questo momento.';
+      });
+  }, function (err) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Permesso GPS negato o non disponibile.';
+  }, { enableHighAccuracy: true, timeout: 10000 });
+});
+
+// ============================================================
+// 2) BATTUTE — JokeAPI esterna + generatore locale in italiano
+// ============================================================
+var BANKS = {
+  prof: ['fornaio', 'elettricista', 'pescatore', 'postino', 'giardiniere', 'dentista', 'astronauta', 'apicoltore'],
+  colmi: ['restare senza pane', 'avere paura della corrente', 'soffrire il mal di mare', 'perdersi per strada', 'essere allergico ai fiori', 'avere il terrore del trapano', 'non saper parcheggiare', 'avere paura del vuoto'],
+  animali: ['pollo', 'gatto', 'criceto', 'pinguino', 'panda', 'canguro'],
+  luoghi: ['la strada', 'il centro commerciale', 'il parco', 'la spiaggia'],
+  motivi: ['per arrivare dall\u2019altra parte', 'perché aveva un appuntamento', 'per sfuggire al meteo', 'per vincere una scommessa']
+};
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function localJoke() {
+  if (Math.random() < 0.5) {
+    return { setup: 'Qual è il colmo per un ' + pick(BANKS.prof) + '?', punch: cap(pick(BANKS.colmi)) + '!' };
+  }
+  return { setup: 'Perché il ' + pick(BANKS.animali) + ' ha attraversato ' + pick(BANKS.luoghi) + '?', punch: cap(pick(BANKS.motivi)) + '!' };
+}
+
+document.getElementById('btnJoke').addEventListener('click', function () {
+  var box = document.getElementById('jokeBox');
+  var setupEl = document.getElementById('jokeSetup');
+  var punchEl = document.getElementById('jokePunch');
+
+  function show(j) {
+    setupEl.textContent = j.setup;
+    punchEl.textContent = j.punch;
+    box.style.display = 'block';
+  }
+
+  if (Math.random() < 0.3) {
+    fetch('https://v2.jokeapi.dev/joke/Any?safe-mode&type=twopart,single')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d.error) throw new Error();
+        show(d.type === 'twopart' ? { setup: d.setup, punch: d.delivery } : { setup: d.joke, punch: '(in inglese)' });
+      })
+      .catch(function () { show(localJoke()); });
+  } else {
+    show(localJoke());
+  }
+});
+
+// ============================================================
+// 3) OGGI — Wikipedia "accadde oggi" + onomastico
+// ============================================================
+(function () {
+  var now = new Date();
+  document.getElementById('todayDate').textContent = now.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+  var mm = String(now.getMonth() + 1).padStart(2, '0');
+  var dd = String(now.getDate()).padStart(2, '0');
+
+  fetch('https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/' + mm + '/' + dd)
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var events = (d.events || []).slice(0, 6);
+      document.getElementById('todayEvents').innerHTML = events.length
+        ? events.map(function (e) { return '<div class="result"><b>' + e.year + '</b> — ' + escapeHtml(e.text) + '</div>'; }).join('')
+        : '<p class="status">Nessun evento disponibile.</p>';
+    })
+    .catch(function () {
+      document.getElementById('todayEvents').innerHTML = '<p class="status err">Servizio non raggiungibile.</p>';
+    });
+
+  fetch('https://nameday.abalin.net/api/V1/today?country=it')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      document.getElementById('todayName').textContent = (d.nameday && d.nameday.it) || 'non disponibile oggi';
+    })
+    .catch(function () {
+      document.getElementById('todayName').textContent = 'non disponibile';
+    });
+})();
+
+// ============================================================
+// 4) MUSICA — dataset locale + link diretti
+// ============================================================
+var MUSIC = {
+  energico: [['Uptown Funk', 'Mark Ronson ft. Bruno Mars'], ['Blinding Lights', 'The Weeknd'], ['Levitating', 'Dua Lipa']],
+  rilassato: [['Sunday Morning', 'Maroon 5'], ['Banana Pancakes', 'Jack Johnson'], ['Nuvole Bianche', 'Ludovico Einaudi']],
+  allegro: [['Azzurro', 'Adriano Celentano'], ['Happy', 'Pharrell Williams'], ['Volare', 'Domenico Modugno']],
+  malinconico: [['Skinny Love', 'Bon Iver'], ['La Cura', 'Franco Battiato'], ['Someone Like You', 'Adele']]
+};
+var mood = 'energico';
+document.querySelectorAll('#chipsMood .chip').forEach(function (c) {
+  c.addEventListener('click', function () {
+    document.querySelectorAll('#chipsMood .chip').forEach(function (x) { x.classList.remove('is-active'); });
+    c.classList.add('is-active');
+    mood = c.dataset.v;
+  });
+});
+document.getElementById('btnMusic').addEventListener('click', function () {
+  var tracks = MUSIC[mood];
+  document.getElementById('musicList').innerHTML = tracks.map(function (t) {
+    var q = encodeURIComponent(t[0] + ' ' + t[1]);
+    return '<div class="result"><b>' + t[0] + '</b><br><span class="meta">' + t[1] + '</span><br>' +
+      '<a href="https://open.spotify.com/search/' + q + '" target="_blank">Spotify →</a>' +
+      '<a href="https://www.youtube.com/results?search_query=' + q + '" target="_blank">YouTube →</a></div>';
+  }).join('');
+});
+
+// ============================================================
+// 5) RICERCA — Wikipedia opensearch + VISUALIZZATORE stile 2009
+// ============================================================
+document.getElementById('searchForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var q = document.getElementById('searchInput').value.trim();
+  var statusEl = document.getElementById('searchStatus');
+  var listEl = document.getElementById('searchList');
+  if (!q) return;
+  listEl.innerHTML = '';
+  statusEl.className = 'status';
+  statusEl.textContent = 'Ricerca in corso…';
+
+  fetch('https://it.wikipedia.org/w/api.php?action=opensearch&search=' + encodeURIComponent(q) + '&limit=6&namespace=0&format=json&origin=*')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var titles = data[1], descs = data[2], links = data[3];
+      if (!titles.length) {
+        statusEl.textContent = 'Nessun risultato.';
+        return;
+      }
+      statusEl.textContent = titles.length + ' risultati (tocca un titolo per aprirlo qui):';
+      listEl.innerHTML = titles.map(function (t, i) {
+        return '<div class="result"><button type="button" class="wikiLinkBtn" data-title="' + escapeHtml(t) + '" data-url="' + links[i] + '"><b>' + escapeHtml(t) + '</b></button><br>' +
+          '<span class="meta">' + escapeHtml(descs[i] || '') + '</span></div>';
+      }).join('');
+      listEl.querySelectorAll('.wikiLinkBtn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openWikiArticle(btn.dataset.title, btn.dataset.url);
+        });
+      });
+    })
+    .catch(function () {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Servizio non raggiungibile in questo momento.';
+    });
+});
+
+function openWikiArticle(title, fallbackUrl) {
+  document.getElementById('searchListView').style.display = 'none';
+  var articleView = document.getElementById('wikiArticleView');
+  var contentEl = document.getElementById('wikiArticleContent');
+  articleView.style.display = 'block';
+  contentEl.innerHTML = '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div><p>Caricamento della voce…</p>';
+
+  fetch('https://it.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var pageUrl = (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || fallbackUrl;
+      var thumb = data.thumbnail ? '<img class="wiki2009-thumb" src="' + data.thumbnail.source + '" alt="">' : '';
+      var extract = data.extract_html || ('<p>' + escapeHtml(data.extract || 'Nessuna anteprima disponibile.') + '</p>');
+      contentEl.innerHTML =
+        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
+        '<h1>' + escapeHtml(data.title || title) + '</h1>' +
+        thumb + extract +
+        '<div class="wiki2009-catbar">Fonte: Wikipedia in italiano · <a href="' + pageUrl + '" target="_blank">Leggi l\u2019articolo completo →</a></div>';
+    })
+    .catch(function () {
+      contentEl.innerHTML =
+        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
+        '<p class="status err">Impossibile caricare l\u2019anteprima della voce.</p>' +
+        '<div class="wiki2009-catbar"><a href="' + fallbackUrl + '" target="_blank">Apri comunque su Wikipedia →</a></div>';
+    });
+}
+
+document.getElementById('btnWikiBack').addEventListener('click', function () {
+  document.getElementById('wikiArticleView').style.display = 'none';
+  document.getElementById('searchListView').style.display = 'block';
+});
+
+// ============================================================
+// 6) SHAZAM-STYLE — registrazione microfono + riconoscimento AudD
+// ============================================================
+document.getElementById('btnShazamListen').addEventListener('click', function () {
+  var statusEl = document.getElementById('shazamStatus');
+  var resultEl = document.getElementById('shazamResult');
+  resultEl.innerHTML = '';
+  statusEl.className = 'status';
+
+  var settings = loadSettings();
+  if (!settings.auddToken) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Serve un token AudD: vai su ⚙ Opzioni e incollalo.';
+    return;
+  }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Il microfono non è supportato su questo browser.';
+    return;
+  }
+
+  statusEl.textContent = 'Accesso al microfono…';
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+    var chunks = [];
+    var recorder;
+    try {
+      recorder = new MediaRecorder(stream);
+    } catch (e) {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Registrazione non supportata su questo browser.';
+      stream.getTracks().forEach(function (t) { t.stop(); });
+      return;
+    }
+
+    recorder.ondataavailable = function (e) { if (e.data.size > 0) chunks.push(e.data); };
+    recorder.onstop = function () {
+      stream.getTracks().forEach(function (t) { t.stop(); });
+      statusEl.textContent = 'Analisi del brano…';
+
+      var blob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' });
+      var fd = new FormData();
+      fd.append('file', blob, 'audio.webm');
+      fd.append('api_token', settings.auddToken);
+      fd.append('return', 'spotify,apple_music');
+
+      fetch('https://api.audd.io/', { method: 'POST', body: fd })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.status !== 'success') {
+            statusEl.className = 'status err';
+            statusEl.textContent = 'Errore: ' + ((data.error && data.error.error_message) || 'token non valido.');
+            return;
+          }
+          if (!data.result) {
+            statusEl.className = 'status';
+            statusEl.textContent = 'Nessuna corrispondenza trovata. Riprova avvicinando il telefono alla musica.';
+            return;
+          }
+          statusEl.textContent = 'Trovato!';
+          var song = data.result;
+          var q = encodeURIComponent(song.title + ' ' + song.artist);
+          var links = '<a href="https://www.youtube.com/results?search_query=' + q + '" target="_blank">YouTube →</a>';
+          if (song.spotify && song.spotify.external_urls) {
+            links += '<a href="' + song.spotify.external_urls.spotify + '" target="_blank">Spotify →</a>';
+          }
+          if (song.apple_music && song.apple_music.url) {
+            links += '<a href="' + song.apple_music.url + '" target="_blank">Apple Music →</a>';
+          }
+          resultEl.innerHTML = '<div class="result"><b>' + escapeHtml(song.title) + '</b><br>' +
+            '<span class="meta">' + escapeHtml(song.artist) + (song.album ? ' · ' + escapeHtml(song.album) : '') + '</span><br>' +
+            links + '</div>';
+        })
+        .catch(function () {
+          statusEl.className = 'status err';
+          statusEl.textContent = 'Servizio di riconoscimento non raggiungibile.';
+        });
+    };
+
+    recorder.start();
+    statusEl.textContent = 'In ascolto… (6 secondi)';
+    setTimeout(function () {
+      if (recorder.state !== 'inactive') recorder.stop();
+    }, 6000);
+  }).catch(function () {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Permesso microfono negato.';
+  });
+});
+
+// ============================================================
+// 7) METEO — Open-Meteo (nessuna chiave richiesta)
+// ============================================================
+var WMO = {
+  0: ['Sereno', '☀️'], 1: ['Poco nuvoloso', '🌤️'], 2: ['Parzialmente nuvoloso', '⛅'], 3: ['Coperto', '☁️'],
+  45: ['Nebbia', '🌫️'], 48: ['Nebbia gelata', '🌫️'],
+  51: ['Pioggerella leggera', '🌦️'], 53: ['Pioggerella', '🌦️'], 55: ['Pioggerella intensa', '🌦️'],
+  56: ['Pioggerella gelata', '🌧️'], 57: ['Pioggerella gelata intensa', '🌧️'],
+  61: ['Pioggia leggera', '🌧️'], 63: ['Pioggia', '🌧️'], 65: ['Pioggia intensa', '🌧️'],
+  66: ['Pioggia gelata', '🌧️'], 67: ['Pioggia gelata intensa', '🌧️'],
+  71: ['Neve leggera', '🌨️'], 73: ['Neve', '❄️'], 75: ['Neve intensa', '❄️'], 77: ['Granelli di neve', '❄️'],
+  80: ['Rovesci leggeri', '🌦️'], 81: ['Rovesci', '🌧️'], 82: ['Rovesci intensi', '⛈️'],
+  85: ['Rovesci di neve', '🌨️'], 86: ['Rovesci di neve intensi', '🌨️'],
+  95: ['Temporale', '⛈️'], 96: ['Temporale con grandine', '⛈️'], 99: ['Temporale intenso con grandine', '⛈️']
+};
+function wmoInfo(code) { return WMO[code] || ['Condizioni sconosciute', '🌡️']; }
+
+function renderWeather(name, current, daily, unit) {
+  var info = wmoInfo(current.weather_code);
+  var unitLabel = unit === 'F' ? '°F' : '°C';
+  document.getElementById('weatherWidget').innerHTML =
+    '<div class="weather-widget"><div class="city">' + escapeHtml(name) + '</div>' +
+    '<div class="icon">' + info[1] + '</div>' +
+    '<div class="temp">' + Math.round(current.temperature_2m) + unitLabel + '</div>' +
+    '<div class="desc">' + info[0] + ' · percepita ' + Math.round(current.apparent_temperature) + unitLabel + '</div>' +
+    '<div class="desc">💧 ' + current.relative_humidity_2m + '% umidità · 💨 ' + Math.round(current.wind_speed_10m) + ' km/h</div>' +
+    '</div>';
+
+  if (daily && daily.time && daily.time.length > 1) {
+    var days = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+    var fc = daily.time.slice(1, 4).map(function (d, idx) {
+      var i = idx + 1;
+      var info2 = wmoInfo(daily.weather_code[i]);
+      var dow = days[new Date(d).getDay()];
+      return '<div class="weather-day"><b>' + dow + '</b><div class="wd-icon">' + info2[1] + '</div>' +
+        Math.round(daily.temperature_2m_max[i]) + '° / ' + Math.round(daily.temperature_2m_min[i]) + '°</div>';
+    }).join('');
+    document.getElementById('weatherForecast').innerHTML = '<div class="weather-forecast">' + fc + '</div>';
+  }
+}
+
+function fetchWeatherByCoords(lat, lon, name) {
+  var settings = loadSettings();
+  var unit = settings.tempUnit || 'C';
+  var tempParam = unit === 'F' ? '&temperature_unit=fahrenheit' : '';
+  var statusEl = document.getElementById('weatherStatus');
+  statusEl.className = 'status';
+  statusEl.textContent = 'Recupero dati meteo…';
+
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+    '&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m' +
+    '&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4' + tempParam)
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      statusEl.textContent = '';
+      renderWeather(name, data.current, data.daily, unit);
+    })
+    .catch(function () {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Servizio meteo non raggiungibile.';
+    });
+}
+
+function fetchWeatherByCity(city) {
+  var statusEl = document.getElementById('weatherStatus');
+  statusEl.className = 'status';
+  statusEl.textContent = 'Ricerca città…';
+
+  fetch('https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(city) + '&count=1&language=it&format=json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.results || !data.results.length) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Città non trovata.';
+        return;
+      }
+      var res = data.results[0];
+      fetchWeatherByCoords(res.latitude, res.longitude, res.name + (res.country ? ', ' + res.country : ''));
+    })
+    .catch(function () {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Servizio non raggiungibile.';
+    });
+}
+
+document.getElementById('btnWeatherSearch').addEventListener('click', function () {
+  var city = document.getElementById('weatherCityInput').value.trim();
+  if (!city) {
+    var s = loadSettings();
+    if (s.city) {
+      city = s.city;
+      document.getElementById('weatherCityInput').value = city;
+    }
+  }
+  if (!city) {
+    var statusEl = document.getElementById('weatherStatus');
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Scrivi il nome di una città.';
+    return;
+  }
+  fetchWeatherByCity(city);
+});
+
+document.getElementById('btnWeatherGPS').addEventListener('click', function () {
+  var statusEl = document.getElementById('weatherStatus');
+  if (!navigator.geolocation) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'GPS non supportato.';
+    return;
+  }
+  statusEl.className = 'status';
+  statusEl.textContent = 'Individuazione posizione…';
+  navigator.geolocation.getCurrentPosition(function (pos) {
+    fetchWeatherByCoords(pos.coords.latitude, pos.coords.longitude, 'Posizione attuale');
+  }, function () {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Permesso GPS negato.';
+  }, { enableHighAccuracy: true, timeout: 10000 });
+});
+
+// al primo tocco della scheda Meteo, prova a caricare automaticamente
+var weatherLoaded = false;
+document.querySelector('.tab[data-p="meteo"]').addEventListener('click', function () {
+  if (weatherLoaded) return;
+  weatherLoaded = true;
+  var s = loadSettings();
+  if (s.city) {
+    document.getElementById('weatherCityInput').value = s.city;
+    fetchWeatherByCity(s.city);
+  } else if (navigator.geolocation) {
+    document.getElementById('btnWeatherGPS').click();
+  }
+});
+
+// ============================================================
+// 8) TRADUTTORE — MyMemory Translation API (gratuita, senza chiave)
+// ============================================================
+var langFrom = 'it', langTo = 'en';
+document.querySelectorAll('#chipsLangFrom .chip').forEach(function (c) {
+  c.addEventListener('click', function () {
+    document.querySelectorAll('#chipsLangFrom .chip').forEach(function (x) { x.classList.remove('is-active'); });
+    c.classList.add('is-active');
+    langFrom = c.dataset.v;
+  });
+});
+document.querySelectorAll('#chipsLangTo .chip').forEach(function (c) {
+  c.addEventListener('click', function () {
+    document.querySelectorAll('#chipsLangTo .chip').forEach(function (x) { x.classList.remove('is-active'); });
+    c.classList.add('is-active');
+    langTo = c.dataset.v;
+  });
+});
+
+document.getElementById('btnTranslate').addEventListener('click', function () {
+  var text = document.getElementById('translateInput').value.trim();
+  var statusEl = document.getElementById('translateStatus');
+  var resultEl = document.getElementById('translateResult');
+  resultEl.style.display = 'none';
+
+  if (!text) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Scrivi prima un testo.';
+    return;
+  }
+  if (langFrom === langTo) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Scegli due lingue diverse.';
+    return;
+  }
+  statusEl.className = 'status';
+  statusEl.textContent = 'Traduzione in corso…';
+
+  fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + langFrom + '|' + langTo)
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.responseData || !data.responseData.translatedText) throw new Error();
+      statusEl.textContent = '';
+      resultEl.style.display = 'block';
+      resultEl.innerHTML = '<b>' + escapeHtml(data.responseData.translatedText) + '</b>';
+    })
+    .catch(function () {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Servizio di traduzione non raggiungibile.';
+    });
+});
+
+// ============================================================
+// 9) APPUNTI — post-it salvato in localStorage
+// ============================================================
+(function () {
+  var area = document.getElementById('notepadArea');
+  var statusEl = document.getElementById('noteStatus');
+  var saved = localStorage.getItem('bussola2009_notes');
+  if (saved) area.value = saved;
+
+  document.getElementById('btnSaveNote').addEventListener('click', function () {
+    localStorage.setItem('bussola2009_notes', area.value);
+    cloudSave({ notes: area.value });
+    statusEl.className = 'status';
+    statusEl.textContent = cloudUser ? 'Salvato sul telefono e sul tuo account ✓' : 'Salvato ✓';
+    setTimeout(function () { statusEl.textContent = ''; }, 2500);
+  });
+  document.getElementById('btnClearNote').addEventListener('click', function () {
+    area.value = '';
+    localStorage.removeItem('bussola2009_notes');
+    cloudSave({ notes: '' });
+    statusEl.className = 'status';
+    statusEl.textContent = 'Appunti cancellati.';
+  });
+})();
+
+// ============================================================
+// ASSISTENTE — capisce domande semplici e apre subito la voce giusta
+// ============================================================
+// Nota onesta: questo è un riconoscimento "a pattern" (regole scritte a mano),
+// non un'intelligenza artificiale generale come Google Assistant. Riconosce
+// domande del tipo "dove si trova X", "cos'è X", "chi è X" ed estrae X; per
+// tutto il resto usa l'intera frase come ricerca su Wikipedia. Per capire
+// davvero qualsiasi domanda servirebbe collegare un servizio di AI vero e
+// proprio (es. le API di Claude), che richiede una chiave e un costo.
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem('bussola2009_history') || '[]'); }
+  catch (e) { return []; }
+}
+function saveHistory(list, skipCloud) {
+  localStorage.setItem('bussola2009_history', JSON.stringify(list));
+  if (!skipCloud) cloudSave({ history: list });
+  renderHistory(list);
+}
+function addToHistory(q) {
+  var list = loadHistory();
+  list.unshift({ q: q, t: Date.now() });
+  list = list.slice(0, 200);
+  saveHistory(list);
+}
+function renderHistory(list) {
+  var el = document.getElementById('assistHistoryList');
+  if (!list || !list.length) {
+    el.innerHTML = '<p class="status">Nessuna domanda salvata finora.</p>';
+    return;
+  }
+  el.innerHTML = list.slice(0, 30).map(function (item) {
+    var d = new Date(item.t);
+    var when = d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+    return '<div class="result"><button type="button" class="wikiLinkBtn" data-q="' + escapeHtml(item.q) + '">' + escapeHtml(item.q) + '</button><br><span class="meta">' + when + '</span></div>';
+  }).join('');
+  el.querySelectorAll('.wikiLinkBtn').forEach(function (btn) {
+    btn.addEventListener('click', function () { smartAsk(btn.dataset.q, true); });
+  });
+}
+
+function extractSubject(q) {
+  var patterns = [
+    /^dove\s+(si trova|si trovano|è|sono)\s+(.+)/i,
+    /^(cos'è|cos e|cosa è|cosa sono|che cos'è)\s+(.+)/i,
+    /^chi\s+(è|era|sono|erano)\s+(.+)/i,
+    /^quando\s+(è|era)\s+(.+)/i
+  ];
+  for (var i = 0; i < patterns.length; i++) {
+    var m = q.match(patterns[i]);
+    if (m) return m[m.length - 1].replace(/[?.!]+$/, '').trim();
+  }
+  return q.replace(/[?.!]+$/, '').trim();
+}
+
+function smartAsk(rawQuery, skipHistory) {
+  var q = rawQuery.trim();
+  if (!q) return;
+  var statusEl = document.getElementById('assistStatus');
+  var listEl = document.getElementById('assistResultList');
+  var subject = extractSubject(q);
+
+  statusEl.className = 'status';
+  statusEl.textContent = 'Cerco «' + subject + '»…';
+  listEl.innerHTML = '';
+  if (!skipHistory) addToHistory(q);
+
+  fetch('https://it.wikipedia.org/w/api.php?action=opensearch&search=' + encodeURIComponent(subject) + '&limit=5&namespace=0&format=json&origin=*')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var titles = data[1], links = data[3];
+      if (!titles.length) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Non ho trovato nulla su «' + subject + '». Prova a riformulare.';
+        return;
+      }
+      statusEl.textContent = '';
+      // Apro direttamente il risultato migliore, come farebbe un assistente vocale.
+      openAssistArticle(titles[0], links[0]);
+      if (titles.length > 1) {
+        listEl.innerHTML = '<p class="status" style="margin-top:10px;">Altri risultati possibili:</p>' +
+          titles.slice(1).map(function (t, i) {
+            return '<div class="result"><button type="button" class="wikiLinkBtn" data-title="' + escapeHtml(t) + '" data-url="' + links[i + 1] + '"><b>' + escapeHtml(t) + '</b></button></div>';
+          }).join('');
+        listEl.querySelectorAll('.wikiLinkBtn').forEach(function (btn) {
+          btn.addEventListener('click', function () { openAssistArticle(btn.dataset.title, btn.dataset.url); });
+        });
+      }
+    })
+    .catch(function () {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Servizio non raggiungibile in questo momento.';
+    });
+}
+
+function openAssistArticle(title, fallbackUrl) {
+  document.getElementById('assistViewChat').style.display = 'none';
+  var articleView = document.getElementById('assistViewArticle');
+  var contentEl = document.getElementById('assistArticleContent');
+  articleView.style.display = 'block';
+  contentEl.innerHTML = '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div><p>Caricamento della voce…</p>';
+
+  fetch('https://it.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var pageUrl = (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || fallbackUrl;
+      var thumb = data.thumbnail ? '<img class="wiki2009-thumb" src="' + data.thumbnail.source + '" alt="">' : '';
+      var extract = data.extract_html || ('<p>' + escapeHtml(data.extract || 'Nessuna anteprima disponibile.') + '</p>');
+      contentEl.innerHTML =
+        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
+        '<h1>' + escapeHtml(data.title || title) + '</h1>' +
+        thumb + extract +
+        '<div class="wiki2009-catbar">Fonte: Wikipedia in italiano · <a href="' + pageUrl + '" target="_blank">Leggi l\u2019articolo completo →</a></div>';
+    })
+    .catch(function () {
+      contentEl.innerHTML =
+        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
+        '<p class="status err">Impossibile caricare l\u2019anteprima della voce.</p>' +
+        '<div class="wiki2009-catbar"><a href="' + fallbackUrl + '" target="_blank">Apri comunque su Wikipedia →</a></div>';
+    });
+}
+
+document.getElementById('assistForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var input = document.getElementById('assistInput');
+  smartAsk(input.value);
+  input.value = '';
+});
+document.getElementById('btnAssistBack').addEventListener('click', function () {
+  document.getElementById('assistViewArticle').style.display = 'none';
+  document.getElementById('assistViewChat').style.display = 'block';
+});
+document.getElementById('btnClearHistory').addEventListener('click', function () {
+  if (confirm('Svuotare la cronologia delle domande?')) saveHistory([]);
+});
+document.getElementById('btnDownloadHistory').addEventListener('click', function () {
+  var list = loadHistory();
+  if (!list.length) return;
+  var lines = list.map(function (item) {
+    var d = new Date(item.t);
+    return '[' + d.toLocaleString('it-IT') + '] ' + item.q;
+  }).join('\n');
+  var blob = new Blob([lines], { type: 'text/plain;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'cronologia-bussola.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+renderHistory(loadHistory());
+
+// ============================================================
+// 10) IMPOSTAZIONI — lettura/scrittura preferenze
+// ============================================================
+(function () {
+  var s = loadSettings();
+  document.getElementById('setCity').value = s.city || '';
+  document.getElementById('setAuddToken').value = s.auddToken || '';
+  var unit = s.tempUnit || 'C';
+
+  document.querySelectorAll('#chipsTempUnit .chip').forEach(function (c) {
+    c.classList.toggle('is-active', c.dataset.v === unit);
+    c.addEventListener('click', function () {
+      document.querySelectorAll('#chipsTempUnit .chip').forEach(function (x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
+    });
+  });
+
+  document.getElementById('btnSaveSettings').addEventListener('click', function () {
+    var newSettings = loadSettings();
+    newSettings.city = document.getElementById('setCity').value.trim();
+    newSettings.auddToken = document.getElementById('setAuddToken').value.trim();
+    var activeUnit = document.querySelector('#chipsTempUnit .chip.is-active');
+    newSettings.tempUnit = activeUnit ? activeUnit.dataset.v : 'C';
+    saveSettingsObj(newSettings);
+
+    var st = document.getElementById('settingsStatus');
+    st.className = 'status';
+    st.textContent = 'Impostazioni salvate ✓';
+    setTimeout(function () { st.textContent = ''; }, 2000);
+  });
+
+  document.getElementById('btnClearAll').addEventListener('click', function () {
+    if (confirm('Cancellare tutte le impostazioni, gli appunti e la cronologia salvati su questo telefono?')) {
+      localStorage.removeItem('bussola2009_settings');
+      localStorage.removeItem('bussola2009_notes');
+      localStorage.removeItem('bussola2009_history');
+      document.getElementById('setCity').value = '';
+      document.getElementById('setAuddToken').value = '';
+      document.getElementById('notepadArea').value = '';
+      renderHistory([]);
+      document.querySelectorAll('#chipsTempUnit .chip').forEach(function (x) { x.classList.remove('is-active'); });
+      document.querySelector('#chipsTempUnit .chip[data-v="C"]').classList.add('is-active');
+
+      var st = document.getElementById('settingsStatus');
+      st.className = 'status';
+      st.textContent = 'Dati cancellati.';
+    }
+  });
+})();
+</script>
+</body>
+</html>
