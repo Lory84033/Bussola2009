@@ -3,30 +3,87 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<title>Bussola 2009 ✦ Assistente</title>
+<title>Bussola 2009 ✦ Aero Edition</title>
 
 <style>
   /* ============================================================
      STILE "AERO" (Windows Vista / Web 2.0, circa 2009):
      gradienti lucidi, vetro, angoli arrotondati, ombre morbide.
-     Tutto in un unico file: nessuna dipendenza esterna di stile.
+     I colori principali sono variabili CSS: cambiano da sole
+     quando si sceglie un tema diverso in Impostazioni.
      ============================================================ */
+  :root {
+    --bg1:#eaf7ff; --bg2:#bfe3fb; --bg3:#6fb6e8; --bg4:#2f7cc1;
+    --tab1:#ffffff; --tab2:#dff1fd; --tab3:#b7dffa; --tab4:#8fc9ec; --tab-border:#8fc3ea; --tab-text:#1c4d7c;
+    --tabA1:#8fd6ff; --tabA2:#2f8fdb; --tabA3:#1668ac; --tabA4:#0d4a82; --tabA-border:#1c5f9e;
+    --btn1:#7fd0ff; --btn2:#2f8fdb; --btn3:#1668ac; --btn4:#0d4a82; --btn-border:#1c5f9e;
+    --accent:#0d4a82; --accent-soft:#4a6d8a; --glass-border:#a9d2ef;
+    --wid1:#4d97e8; --wid2:#1c5f9e; --wid3:#0d3a66;
+    --chipA1:#ffd27f; --chipA2:#f5a623; --chipA3:#d1830c; --chipA4:#a56600; --chipA-border:#a56600;
+  }
+  body.theme-arancione {
+    --bg1:#fff8ec; --bg2:#ffdca3; --bg3:#f5a94a; --bg4:#c9701a;
+    --tab1:#ffffff; --tab2:#ffedd4; --tab3:#ffd39b; --tab4:#f2ae5c; --tab-border:#eabb78; --tab-text:#7a3d0a;
+    --tabA1:#ffbd77; --tabA2:#f5822f; --tabA3:#c9530f; --tabA4:#7a3d0a; --tabA-border:#9c4a12;
+    --btn1:#ffc98a; --btn2:#f5822f; --btn3:#c9530f; --btn4:#7a3d0a; --btn-border:#9c4a12;
+    --accent:#7a3d0a; --accent-soft:#8a6238; --glass-border:#eabb78;
+    --wid1:#f2a154; --wid2:#c9530f; --wid3:#7a3d0a;
+    --chipA1:#c9f2a0; --chipA2:#8fce2f; --chipA3:#5f9e16; --chipA4:#3f6a0c; --chipA-border:#3f6a0c;
+  }
+  body.theme-verde {
+    --bg1:#eefbe9; --bg2:#c8ecb0; --bg3:#82c46a; --bg4:#3f7d2c;
+    --tab1:#ffffff; --tab2:#e6f7dc; --tab3:#c3e9ac; --tab4:#9bd47d; --tab-border:#a9d98f; --tab-text:#2c5a1c;
+    --tabA1:#a9e884; --tabA2:#5fae2f; --tabA3:#3f7d16; --tabA4:#2c5a1c; --tabA-border:#33630f;
+    --btn1:#bdeb98; --btn2:#5fae2f; --btn3:#3f7d16; --btn4:#2c5a1c; --btn-border:#33630f;
+    --accent:#2c5a1c; --accent-soft:#547a44; --glass-border:#a9d98f;
+    --wid1:#7fbf5a; --wid2:#3f7d16; --wid3:#2c5a1c;
+    --chipA1:#ffe08a; --chipA2:#f0ad2e; --chipA3:#c98a0c; --chipA4:#8a5c06; --chipA-border:#8a5c06;
+  }
+  body.theme-argento {
+    --bg1:#f7f9fb; --bg2:#dfe6ec; --bg3:#aebbc7; --bg4:#6d7d8c;
+    --tab1:#ffffff; --tab2:#eef2f5; --tab3:#d7dfe5; --tab4:#b9c4cc; --tab-border:#c3ccd3; --tab-text:#33424d;
+    --tabA1:#c9d3da; --tabA2:#8b9aa6; --tabA3:#5c6b76; --tabA4:#33424d; --tabA-border:#48555f;
+    --btn1:#d6dee3; --btn2:#8b9aa6; --btn3:#5c6b76; --btn4:#33424d; --btn-border:#48555f;
+    --accent:#33424d; --accent-soft:#5c6b76; --glass-border:#c3ccd3;
+    --wid1:#93a3ad; --wid2:#5c6b76; --wid3:#33424d;
+    --chipA1:#ffe08a; --chipA2:#f0ad2e; --chipA3:#c98a0c; --chipA4:#8a5c06; --chipA-border:#8a5c06;
+  }
+  body.theme-viola {
+    --bg1:#f6efff; --bg2:#dcc4f7; --bg3:#a875df; --bg4:#6c3fa8;
+    --tab1:#ffffff; --tab2:#f0e2fb; --tab3:#dcc0f2; --tab4:#c299e6; --tab-border:#caa3e8; --tab-text:#4d2872;
+    --tabA1:#cf9eee; --tabA2:#9350cc; --tabA3:#6c3199; --tabA4:#4d2872; --tabA-border:#5c2c8a;
+    --btn1:#d9aef2; --btn2:#9350cc; --btn3:#6c3199; --btn4:#4d2872; --btn-border:#5c2c8a;
+    --accent:#4d2872; --accent-soft:#7a5a99; --glass-border:#caa3e8;
+    --wid1:#b57fe0; --wid2:#6c3199; --wid3:#4d2872;
+    --chipA1:#ffe08a; --chipA2:#f0ad2e; --chipA3:#c98a0c; --chipA4:#8a5c06; --chipA-border:#8a5c06;
+  }
+  body.theme-rosso {
+    --bg1:#fff0ee; --bg2:#ffc7bd; --bg3:#e8795f; --bg4:#a83a20;
+    --tab1:#ffffff; --tab2:#ffe3dd; --tab3:#ffbcae; --tab4:#f0917a; --tab-border:#eba18e; --tab-text:#7a2c15;
+    --tabA1:#f5a68e; --tabA2:#d85a37; --tabA3:#a83a20; --tabA4:#7a2c15; --tabA-border:#8a2f13;
+    --btn1:#f5b39c; --btn2:#d85a37; --btn3:#a83a20; --btn4:#7a2c15; --btn-border:#8a2f13;
+    --accent:#7a2c15; --accent-soft:#99503a; --glass-border:#eba18e;
+    --wid1:#e07d5f; --wid2:#a83a20; --wid3:#7a2c15;
+    --chipA1:#8ad2ff; --chipA2:#2ea6f0; --chipA3:#0c78c9; --chipA4:#064e8a; --chipA-border:#064e8a;
+  }
+
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   html, body {
     margin: 0; padding: 0;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: #16324a;
-    /* sfondo blu vetro, tipico Aero */
-    background: radial-gradient(ellipse at 50% -10%, #eaf7ff 0%, #bfe3fb 35%, #6fb6e8 70%, #2f7cc1 100%);
+    background: radial-gradient(ellipse at 50% -10%, var(--bg1) 0%, var(--bg2) 35%, var(--bg3) 70%, var(--bg4) 100%);
+    background-attachment: fixed;
     min-height: 100vh;
+    transition: background 0.4s ease;
   }
 
   /* Barra del titolo in stile "vetro" con riflesso */
   .titlebar {
     position: relative;
     text-align: center;
-    padding: 18px 10px 22px;
+    padding: 20px 10px 24px;
     color: #fff;
     text-shadow: 0 1px 2px rgba(0,0,0,0.35);
     overflow: hidden;
@@ -34,20 +91,29 @@
   .titlebar::before {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; height: 55%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+    top: 0; left: 0; right: 0; height: 60%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+  .titlebar::after {
+    content: "";
+    position: absolute;
+    left: -20%; right: -20%; bottom: -60%; height: 100%;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.25), rgba(255,255,255,0) 70%);
     pointer-events: none;
   }
   .titlebar h1 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
     letter-spacing: 0.5px;
+    position: relative;
   }
   .titlebar .sub {
     margin: 4px 0 0;
     font-size: 0.82rem;
     opacity: 0.95;
+    position: relative;
   }
 
   /* Tab lucide in stile "bottoni Aero" */
@@ -55,7 +121,7 @@
     display: flex;
     gap: 6px;
     overflow-x: auto;
-    padding: 0 10px 10px;
+    padding: 0 10px 12px;
     -webkit-overflow-scrolling: touch;
   }
   .tab {
@@ -64,61 +130,83 @@
     border-radius: 999px;
     font-size: 0.86rem;
     font-weight: bold;
-    color: #1c4d7c;
-    border: 1px solid #8fc3ea;
-    background: linear-gradient(180deg, #ffffff 0%, #dff1fd 45%, #b7dffa 50%, #8fc9ec 100%);
+    color: var(--tab-text);
+    border: 1px solid var(--tab-border);
+    background: linear-gradient(180deg, var(--tab1) 0%, var(--tab2) 45%, var(--tab3) 50%, var(--tab4) 100%);
     box-shadow: 0 2px 4px rgba(0,40,80,0.25), inset 0 1px 0 rgba(255,255,255,0.9);
     white-space: nowrap;
+    transition: background 0.3s ease, color 0.3s ease;
   }
   .tab:active { filter: brightness(0.95); }
   .tab.is-active {
     color: #fff;
-    border-color: #1c5f9e;
-    background: linear-gradient(180deg, #6cc0ff 0%, #2f8fdb 45%, #1668ac 50%, #0d4a82 100%);
-    box-shadow: 0 2px 6px rgba(0,30,60,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
+    border-color: var(--tabA-border);
+    background: linear-gradient(180deg, var(--tabA1) 0%, var(--tabA2) 45%, var(--tabA3) 50%, var(--tabA4) 100%);
+    box-shadow: 0 2px 8px rgba(0,30,60,0.45), inset 0 1px 0 rgba(255,255,255,0.65);
   }
 
   /* Contenitore principale */
   .wrap { padding: 0 12px 40px; max-width: 480px; margin: 0 auto; }
 
-  /* Pannello "vetro" tipo Web 2.0: card bianca lucida, bordi arrotondati */
+  /* Pannello "vetro" tipo Web 2.0: card bianca lucida, bordi arrotondati, con riflesso in alto */
   .glass {
+    position: relative;
     background: linear-gradient(180deg, #ffffff 0%, #f3faff 100%);
-    border: 1px solid #a9d2ef;
-    border-radius: 16px;
-    padding: 16px;
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 18px 16px 16px;
     margin-bottom: 14px;
-    box-shadow: 0 4px 10px rgba(10,50,90,0.25), inset 0 1px 0 rgba(255,255,255,0.9);
+    box-shadow: 0 6px 16px rgba(10,50,90,0.22), inset 0 1px 0 rgba(255,255,255,0.9);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
   }
+  .glass::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 4%; right: 4%; height: 40%;
+    border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+  .glass > * { position: relative; }
   .glass h2 {
     margin: 0 0 6px;
     font-size: 1.15rem;
-    color: #0d4a82;
+    color: var(--accent);
   }
   .glass p.lede {
     margin: 0 0 12px;
     font-size: 0.86rem;
-    color: #4a6d8a;
+    color: var(--accent-soft);
   }
 
   .panel { display: none; }
   .panel.is-active { display: block; }
 
-  /* Pulsante grande "Aero" lucido (verde tipo Web 2.0, o blu principale) */
+  /* Pulsante grande "Aero" lucido */
   .btn {
+    position: relative;
     display: block;
     width: 100%;
     text-align: center;
     padding: 13px 10px;
-    border-radius: 12px;
+    border-radius: 13px;
     font-size: 1rem;
     font-weight: bold;
     color: #fff;
     text-shadow: 0 1px 1px rgba(0,0,0,0.35);
-    border: 1px solid #1c5f9e;
-    background: linear-gradient(180deg, #7fd0ff 0%, #2f8fdb 45%, #1668ac 50%, #0d4a82 100%);
-    box-shadow: 0 3px 6px rgba(0,30,60,0.35), inset 0 1px 0 rgba(255,255,255,0.65);
+    border: 1px solid var(--btn-border);
+    background: linear-gradient(180deg, var(--btn1) 0%, var(--btn2) 45%, var(--btn3) 50%, var(--btn4) 100%);
+    box-shadow: 0 3px 8px rgba(0,30,60,0.35), inset 0 1px 0 rgba(255,255,255,0.65);
     margin: 6px 0;
+    overflow: hidden;
+  }
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 48%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+    pointer-events: none;
   }
   .btn:active { filter: brightness(0.92); transform: translateY(1px); }
   .btn.green {
@@ -129,39 +217,46 @@
     border-color: #821001;
     background: linear-gradient(180deg, #ff9d7f 0%, #db4b2f 45%, #ac1c0d 50%, #821001 100%);
   }
-  .btn:disabled { opacity: 0.6; }
+  .btn:disabled { opacity: 0.55; filter: grayscale(0.3); }
   .btn-row { display: flex; gap: 8px; }
   .btn-row .btn { margin: 6px 0; }
 
-  /* Chip di scelta (tipo di luogo, umore) - stile bottone lucido piccolo */
+  /* Link testuale piccolo, stile "vetro" leggero */
+  .link-btn {
+    background: none; border: none; padding: 4px 0; margin: 4px 0 0;
+    font: inherit; font-size: 0.82rem; font-weight: bold;
+    color: var(--accent); cursor: pointer; text-decoration: underline;
+  }
+
+  /* Chip di scelta - stile bottone lucido piccolo */
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .chip {
     padding: 7px 12px;
     border-radius: 999px;
     font-size: 0.8rem;
     font-weight: bold;
-    color: #1c4d7c;
-    border: 1px solid #8fc3ea;
-    background: linear-gradient(180deg, #ffffff 0%, #dff1fd 45%, #b7dffa 50%, #8fc9ec 100%);
+    color: var(--tab-text);
+    border: 1px solid var(--tab-border);
+    background: linear-gradient(180deg, var(--tab1) 0%, var(--tab2) 45%, var(--tab3) 50%, var(--tab4) 100%);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
   }
   .chip.is-active {
     color: #fff;
-    background: linear-gradient(180deg, #ffd27f 0%, #f5a623 45%, #d1830c 50%, #a56600 100%);
-    border-color: #a56600;
+    background: linear-gradient(180deg, var(--chipA1) 0%, var(--chipA2) 45%, var(--chipA3) 50%, var(--chipA4) 100%);
+    border-color: var(--chipA-border);
   }
 
   /* Righe di risultato: piccole card lucide */
   .result {
     background: linear-gradient(180deg, #ffffff, #eaf5fd);
     border: 1px solid #bcdcf3;
-    border-radius: 10px;
-    padding: 10px 12px;
-    margin-bottom: 8px;
-    box-shadow: 0 1px 3px rgba(10,50,90,0.15);
+    border-radius: 12px;
+    padding: 11px 13px;
+    margin-bottom: 9px;
+    box-shadow: 0 2px 5px rgba(10,50,90,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
     font-size: 0.88rem;
   }
-  .result b { color: #0d4a82; }
+  .result b { color: var(--accent); }
   .result .meta { color: #5a7d99; font-size: 0.8rem; }
   .result a {
     display: inline-block;
@@ -173,14 +268,15 @@
   }
   .result a:active { opacity: 0.7; }
 
-  .status { font-size: 0.85rem; color: #4a6d8a; margin: 8px 0; }
+  .status { font-size: 0.85rem; color: var(--accent-soft); margin: 8px 0; }
   .status.err { color: #b13d1c; font-weight: bold; }
+  .status.ok { color: #3f7d1c; font-weight: bold; }
 
-  input[type="search"], input[type="text"], input[type="password"], textarea {
+  input[type="search"], input[type="text"], input[type="email"], input[type="password"], textarea {
     width: 100%;
     padding: 11px 12px;
     border-radius: 10px;
-    border: 1px solid #8fc3ea;
+    border: 1px solid var(--tab-border);
     background: linear-gradient(180deg, #ffffff, #eef8ff);
     font-size: 0.95rem;
     margin-bottom: 8px;
@@ -191,7 +287,7 @@
     display: block;
     font-size: 0.82rem;
     font-weight: bold;
-    color: #0d4a82;
+    color: var(--accent);
     margin: 10px 0 4px;
   }
 
@@ -203,7 +299,7 @@
     opacity: 0.85;
   }
 
-  /* -------- Visualizzatore "Wikipedia stile 2009" -------- */
+  /* -------- Visualizzatore "Wikipedia / lettura stile 2009" -------- */
   .wikiLinkBtn {
     background: none; border: none; padding: 0; margin: 0;
     font: inherit; color: #0d6ab5; font-weight: bold;
@@ -217,9 +313,9 @@
     border-radius: 999px;
     font-size: 0.8rem;
     font-weight: bold;
-    color: #1c4d7c;
-    border: 1px solid #8fc3ea;
-    background: linear-gradient(180deg, #ffffff 0%, #dff1fd 45%, #b7dffa 50%, #8fc9ec 100%);
+    color: var(--tab-text);
+    border: 1px solid var(--tab-border);
+    background: linear-gradient(180deg, var(--tab1) 0%, var(--tab2) 45%, var(--tab3) 50%, var(--tab4) 100%);
     cursor: pointer;
   }
   .wiki2009 {
@@ -242,6 +338,24 @@
   }
   .wiki2009-logo { font-size: 1.35rem; font-weight: bold; letter-spacing: 0.5px; }
   .wiki2009-tagline { font-size: 0.72rem; font-style: italic; color: #54595d; }
+
+  /* -------- Finestrella mappa OpenStreetMap, stile "programma" 2009 -------- */
+  .osm2009 {
+    background: #fff;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+  .osm2009-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 10px;
+    background: linear-gradient(180deg, var(--tab1) 0%, var(--tab2) 45%, var(--tab3) 50%, var(--tab4) 100%);
+    border-bottom: 1px solid var(--tab-border);
+    font-size: 0.8rem; font-weight: bold; color: var(--tab-text);
+  }
+  .osm2009 iframe { display: block; width: 100%; height: 280px; border: none; }
+  .osm2009-foot { padding: 8px 10px; font-size: 0.8rem; }
   .wiki2009 h1 {
     font-family: Georgia, serif;
     font-weight: normal;
@@ -253,6 +367,12 @@
   .wiki2009 p { font-size: 0.95rem; line-height: 1.65; margin: 0 0 12px; }
   .wiki2009 a { color: #0645ad; text-decoration: none; }
   .wiki2009 a:hover { text-decoration: underline; }
+  .wiki2009 h2, .wiki2009 h3 { font-family: Georgia, serif; font-weight: normal; border-bottom: 1px solid #eaecf0; padding-bottom: 4px; margin: 18px 0 8px; }
+  .wiki2009 ul, .wiki2009 ol { padding-left: 22px; }
+  .wiki2009 table { max-width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 10px 0; }
+  .wiki2009 table td, .wiki2009 table th { border: 1px solid #c8ccd1; padding: 4px 6px; }
+  .wiki2009 img { max-width: 100%; height: auto; }
+  .wiki2009 sup { font-size: 0.7em; }
   .wiki2009-thumb {
     float: right; max-width: 40%; margin: 0 0 10px 12px;
     border: 1px solid #c8ccd1; padding: 4px; background: #f8f9fa;
@@ -268,29 +388,59 @@
     border-radius: 2px;
   }
 
+  /* -------- Notizie: card con foto in stile feed 2009 -------- */
+  .news-card { cursor: pointer; }
+  .news-card:active { opacity: 0.85; }
+  .news-thumb {
+    width: 100%; max-height: 150px; object-fit: cover;
+    border-radius: 8px; margin-bottom: 8px;
+    border: 1px solid #c8ccd1;
+  }
+  #newsReaderContent img.wiki2009-thumb { max-width: 45%; }
+  #newsReaderContent { touch-action: pan-y; }
+
   /* -------- Gadget meteo, stile sidebar di Vista -------- */
   .weather-widget {
     margin-top: 12px;
-    padding: 16px;
-    border-radius: 14px;
+    padding: 18px;
+    border-radius: 16px;
     text-align: center;
     color: #fff;
     text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-    background: linear-gradient(180deg, #4d97e8 0%, #1c5f9e 60%, #0d3a66 100%);
-    box-shadow: 0 4px 10px rgba(10,40,80,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+    background: linear-gradient(180deg, var(--wid1) 0%, var(--wid2) 60%, var(--wid3) 100%);
+    box-shadow: 0 5px 14px rgba(10,40,80,0.4), inset 0 1px 0 rgba(255,255,255,0.35);
+    position: relative;
+    overflow: hidden;
+  }
+  .weather-widget::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 45%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+    pointer-events: none;
   }
   .weather-widget .city { font-size: 1.05rem; font-weight: bold; }
   .weather-widget .icon { font-size: 2.6rem; line-height: 1; margin: 4px 0; }
   .weather-widget .temp { font-size: 2.6rem; font-weight: bold; margin: 2px 0; }
   .weather-widget .desc { font-size: 0.85rem; opacity: 0.95; margin: 2px 0; }
-  .weather-forecast { display: flex; gap: 8px; margin-top: 10px; }
+  .weather-forecast { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; padding-bottom: 2px; -webkit-overflow-scrolling: touch; }
   .weather-day {
-    flex: 1; text-align: center;
-    background: linear-gradient(180deg, #eaf5fd, #cfe8fb);
-    border: 1px solid #a9d2ef; border-radius: 10px;
-    padding: 8px 4px; font-size: 0.76rem; color: #0d4a82;
+    flex: 0 0 58px; text-align: center;
+    background: linear-gradient(180deg, var(--tab1), var(--tab3));
+    border: 1px solid var(--tab-border); border-radius: 10px;
+    padding: 8px 4px; font-size: 0.76rem; color: var(--accent);
+    font-family: inherit; cursor: pointer;
   }
+  .weather-day:active { filter: brightness(0.95); }
+  .weather-day.wd-selected { border-width: 2px; box-shadow: 0 0 0 2px var(--tabA-border) inset; }
   .weather-day .wd-icon { font-size: 1.3rem; }
+  .weather-day .wd-date { display: block; font-size: 0.68rem; opacity: 0.75; margin-top: -2px; }
+  .weather-day.wd-past { opacity: 0.6; }
+  .weather-day.wd-today {
+    border: 2px solid var(--tabA-border);
+    background: linear-gradient(180deg, #fff9d6, #ffe9a8);
+    font-weight: bold;
+  }
 
   /* -------- Appunti in stile post-it -------- */
   #notepadArea {
@@ -306,7 +456,11 @@
 
 <div class="titlebar">
   <h1>✦ Bussola ✦</h1>
-  <p class="sub" id="greeting">Assistente veloce — nessuna installazione</p>
+  <p class="sub" id="greeting">Il tuo compagno tascabile — nessuna installazione</p>
+</div>
+
+<div id="fileProtocolWarning" style="display:none; margin:0 12px 10px; padding:10px 12px; border-radius:10px; background:#fff3cd; border:1px solid #e6c26a; color:#6b4c00; font-size:0.82rem; line-height:1.4;">
+  ⚠️ Stai aprendo questo file direttamente dal telefono. Per sicurezza il browser blocca molte richieste online da un file locale: account, meteo, musica e notizie potrebbero non funzionare. Carica il file su un sito gratuito (es. GitHub Pages o Netlify Drop) e aprilo da lì: funzionerà tutto.
 </div>
 
 <div class="tabs" id="tabs">
@@ -317,7 +471,7 @@
   <button class="tab" data-p="shazam">🎤 Shazam</button>
   <button class="tab" data-p="meteo">🌤 Meteo</button>
   <button class="tab" data-p="cerca">🔍 Cerca</button>
-  <button class="tab" data-p="assistente">🤖 Assistente</button>
+  <button class="tab" data-p="notizie">📰 Notizie</button>
   <button class="tab" data-p="traduttore">🌍 Traduttore</button>
   <button class="tab" data-p="appunti">📝 Appunti</button>
   <button class="tab" data-p="account">🔐 Account</button>
@@ -329,19 +483,29 @@
   <!-- LUOGHI VICINI -->
   <div class="panel is-active" id="p-vicino">
     <div class="glass">
-      <h2>Cosa cerchi qui vicino?</h2>
-      <p class="lede">Tocca una categoria, poi premi il pulsante: userò il GPS del telefono.</p>
-      <div class="chips" id="chipsPlace">
-        <button class="chip is-active" data-v="bancomat">Bancomat</button>
-        <button class="chip" data-v="ristorante">Ristorante</button>
-        <button class="chip" data-v="farmacia">Farmacia</button>
-        <button class="chip" data-v="bar">Bar</button>
-        <button class="chip" data-v="supermercato">Supermercato</button>
-        <button class="chip" data-v="distributore">Benzina</button>
+      <div id="nearbyListView">
+        <h2>Cosa cerchi qui vicino?</h2>
+        <p class="lede">Tocca una categoria, poi premi il pulsante: userò il GPS del telefono.</p>
+        <div class="chips" id="chipsPlace">
+          <button class="chip is-active" data-v="bancomat">Bancomat</button>
+          <button class="chip" data-v="ristorante">Ristorante</button>
+          <button class="chip" data-v="farmacia">Farmacia</button>
+          <button class="chip" data-v="bar">Bar</button>
+          <button class="chip" data-v="supermercato">Supermercato</button>
+          <button class="chip" data-v="distributore">Benzina</button>
+        </div>
+        <button class="btn" id="btnNearby">📍 Trova il più vicino</button>
+        <p class="status" id="nearbyStatus"></p>
+        <div id="nearbyList"></div>
+
+        <label class="field-label">Oppure cerca qualcos'altro qui vicino</label>
+        <input type="search" id="nearbySearchInput" placeholder="Es. libreria, parrucchiere, palestra…" />
+        <button class="btn" id="btnNearbySearch">🔎 Cerca nelle vicinanze</button>
       </div>
-      <button class="btn" id="btnNearby">📍 Trova il più vicino</button>
-      <p class="status" id="nearbyStatus"></p>
-      <div id="nearbyList"></div>
+      <div id="nearbyMapView" style="display:none;">
+        <button class="wiki-back" id="btnNearbyMapBack">← Torna all\u2019elenco</button>
+        <div class="osm2009" id="osm2009Container"></div>
+      </div>
     </div>
   </div>
 
@@ -353,7 +517,7 @@
       <button class="btn green" id="btnJoke">☺ Raccontamene una</button>
       <div class="result" id="jokeBox" style="display:none; margin-top:12px;">
         <p id="jokeSetup" style="font-weight:bold; margin:0 0 6px;"></p>
-        <p id="jokePunch" style="color:#0d4a82; margin:0;"></p>
+        <p id="jokePunch" style="color:var(--accent); margin:0;"></p>
       </div>
     </div>
   </div>
@@ -411,6 +575,7 @@
       <p class="status" id="weatherStatus"></p>
       <div id="weatherWidget"></div>
       <div id="weatherForecast"></div>
+      <p class="lede" style="margin:6px 0 0; font-size:0.76rem;">Tocca un giorno per vederne i dettagli.</p>
     </div>
   </div>
 
@@ -434,28 +599,30 @@
     </div>
   </div>
 
-  <!-- ASSISTENTE — prompt libero, intelligente quanto basta -->
-  <div class="panel" id="p-assistente">
+  <!-- NOTIZIE — feed in stile 2009, con foto e modalità lettura -->
+  <div class="panel" id="p-notizie">
     <div class="glass">
-      <div id="assistViewChat">
-        <h2>🤖 Chiedimi qualcosa</h2>
-        <p class="lede">Scrivi una domanda tipo "dove si trova il Colosseo" o "chi è Leonardo da Vinci": capisco cosa cerchi e ti apro subito la voce.</p>
-        <form id="assistForm">
-          <input type="search" id="assistInput" placeholder="Fai una domanda…" required />
-          <button class="btn" type="submit">🤖 Chiedi</button>
-        </form>
-        <p class="status" id="assistStatus"></p>
-        <div id="assistResultList"></div>
-
-        <h2 style="margin-top:18px;">🕘 Cronologia domande</h2>
-        <p class="lede">Le tue ultime domande, salvate su questo telefono<span id="assistCloudNote"></span>.</p>
-        <div id="assistHistoryList"><p class="status">Nessuna domanda salvata finora.</p></div>
-        <button class="btn" id="btnDownloadHistory">⬇️ Scarica cronologia (.txt)</button>
-        <button class="btn red" id="btnClearHistory">🗑 Svuota cronologia</button>
+      <div id="newsListView">
+        <h2>📰 Notizie</h2>
+        <p class="lede">Notizie di oggi, ma sfogliale come nel 2009: tocca una notizia per leggerla, scorri o usa le frecce per passare alla prossima. Le anteprime delle testate sono brevi per scelta loro (il link "Apri la fonte originale" porta all'articolo vero); per leggere subito il testo intero senza uscire dall'app, prova "📖 Wikinews".</p>
+        <div class="chips" id="chipsNewsCat">
+          <button class="chip is-active" data-v="generale">Generale</button>
+          <button class="chip" data-v="tecnologia">Tecnologia</button>
+          <button class="chip" data-v="sport">Sport</button>
+          <button class="chip" data-v="mondo">Mondo</button>
+          <button class="chip" data-v="wikinews">📖 Wikinews (articoli integrali)</button>
+        </div>
+        <p class="status" id="newsStatus">Tocca la scheda per caricare le notizie…</p>
+        <div id="newsList"></div>
+        <button class="btn" id="btnNewsMore" style="display:none;">⬇️ Carica altre notizie</button>
       </div>
-      <div id="assistViewArticle" style="display:none;">
-        <button class="wiki-back" id="btnAssistBack">← Torna all'assistente</button>
-        <div class="wiki2009" id="assistArticleContent"></div>
+      <div id="newsReaderView" style="display:none;">
+        <button class="wiki-back" id="btnNewsBack">← Torna alle notizie</button>
+        <div class="wiki2009" id="newsReaderContent"></div>
+        <div class="btn-row" style="margin-top:10px;">
+          <button class="btn" id="btnNewsPrev">‹ Precedente</button>
+          <button class="btn" id="btnNewsNext">Successiva ›</button>
+        </div>
       </div>
     </div>
   </div>
@@ -492,7 +659,7 @@
   <div class="panel" id="p-appunti">
     <div class="glass">
       <h2>📝 Appunti veloci</h2>
-      <p class="lede">Come un post-it digitale, salvato solo in questo browser.</p>
+      <p class="lede" id="notesLede">Come un post-it digitale. Se hai un account collegato viene salvato lì; altrimenti resta solo su questo telefono.</p>
       <textarea id="notepadArea" rows="8" placeholder="Scrivi un promemoria…"></textarea>
       <div class="btn-row">
         <button class="btn green" id="btnSaveNote">💾 Salva</button>
@@ -509,33 +676,51 @@
 
       <div id="accountNotConfigured" style="display:none;">
         <p class="lede">Questa funzione non è ancora collegata a un servizio account. Per attivarla:</p>
-        <ol style="font-size:0.85rem; color:#4a6d8a; padding-left:18px; margin:0 0 10px;">
+        <ol style="font-size:0.85rem; color:var(--accent-soft); padding-left:18px; margin:0 0 10px;">
           <li>Vai su <a href="https://console.firebase.google.com" target="_blank" style="color:#0d6ab5;">console.firebase.google.com</a> e crea un progetto gratuito (nome a piacere).</li>
           <li>Nel menu "Authentication" → "Sign-in method", attiva "Email/Password".</li>
           <li>In "Impostazioni progetto" → "Le tue app", crea un'app Web e copia l'oggetto <code>firebaseConfig</code>.</li>
           <li>Incolla i valori nella costante <code>FIREBASE_CONFIG</code> all'inizio dello script di questo file.</li>
+          <li>In "Firestore Database" crea il database, poi incolla le regole suggerite nel commento vicino a <code>FIREBASE_CONFIG</code> (servono per il recupero password e per riconoscere il nome utente).</li>
         </ol>
         <p class="status" style="font-size:0.78rem;">Quelle chiavi sono pubbliche per design: è normale che compaiano nel codice del sito.</p>
       </div>
 
       <div id="accountConfigured" style="display:none;">
         <div id="accountLoggedOut">
-          <p class="lede">Crea un account o accedi con nome utente e password.</p>
-          <div class="chips" id="chipsAuthMode">
-            <button class="chip is-active" data-v="login">Accedi</button>
-            <button class="chip" data-v="register">Registrati</button>
+          <div id="authFormView">
+            <p class="lede">Crea un account o accedi con nome utente e password.</p>
+            <div class="chips" id="chipsAuthMode">
+              <button class="chip is-active" data-v="login">Accedi</button>
+              <button class="chip" data-v="register">Registrati</button>
+            </div>
+            <input type="text" id="authUsername" placeholder="Nome utente" autocomplete="username" />
+            <input type="email" id="authEmail" placeholder="Email (facoltativa: serve solo per recuperare la password)" autocomplete="email" style="display:none;" />
+            <input type="password" id="authPassword" placeholder="Password (min. 6 caratteri)" autocomplete="current-password" />
+            <button class="btn" id="btnAuthSubmit">🔐 Accedi</button>
+            <p class="status" id="authStatus"></p>
+            <button type="button" class="link-btn" id="btnForgotOpen">Password dimenticata?</button>
           </div>
-          <input type="text" id="authUsername" placeholder="Nome utente" autocomplete="username" />
-          <input type="password" id="authPassword" placeholder="Password (min. 6 caratteri)" autocomplete="current-password" />
-          <button class="btn" id="btnAuthSubmit">🔐 Accedi</button>
-          <p class="status" id="authStatus"></p>
+          <div id="forgotView" style="display:none;">
+            <p class="lede">Scrivi il tuo nome utente o la tua email: ti mandiamo un link per reimpostare la password.</p>
+            <input type="text" id="forgotIdentifier" placeholder="Nome utente o email" />
+            <button class="btn" id="btnForgotSend">✉️ Invia email di recupero</button>
+            <p class="status" id="forgotStatus"></p>
+            <button type="button" class="link-btn" id="btnForgotBack">← Torna al login</button>
+          </div>
         </div>
         <div id="accountLoggedIn" style="display:none;">
           <div class="result">
             <b>Bentornato, <span id="accountUsername"></span>!</b><br>
-            <span class="meta">Sei connesso con il tuo account.</span>
+            <span class="meta">Sei connesso con il tuo account: i tuoi appunti e le tue impostazioni ti seguono ovunque accedi.</span>
           </div>
           <button class="btn red" id="btnLogout">🚪 Esci</button>
+
+          <p class="lede" style="margin-top:14px;">Cambia password</p>
+          <input type="password" id="changePwCurrent" placeholder="Password attuale" autocomplete="current-password" />
+          <input type="password" id="changePwNew" placeholder="Nuova password (min. 6 caratteri)" autocomplete="new-password" />
+          <button class="btn" id="btnChangePw">🔑 Aggiorna password</button>
+          <p class="status" id="changePwStatus"></p>
         </div>
       </div>
     </div>
@@ -545,7 +730,23 @@
   <div class="panel" id="p-impostazioni">
     <div class="glass">
       <h2>⚙ Impostazioni</h2>
-      <p class="lede">Tutto resta su questo telefono, nel browser: nessun account, nessun server.</p>
+      <p class="lede">Se sei collegato a un account, queste preferenze restano sul tuo account e ti seguono; altrimenti restano solo su questo telefono.</p>
+
+      <label class="field-label">Tema colori</label>
+      <div class="chips" id="chipsTheme">
+        <button class="chip is-active" data-v="blu">🔵 Blu Aero</button>
+        <button class="chip" data-v="arancione">🟠 Arancione</button>
+        <button class="chip" data-v="verde">🟢 Verde</button>
+        <button class="chip" data-v="viola">🟣 Viola</button>
+        <button class="chip" data-v="rosso">🔴 Rosso</button>
+        <button class="chip" data-v="argento">⚪ Argento</button>
+        <button class="chip" data-v="personalizzato">🎨 Personalizzato</button>
+      </div>
+      <div id="customColorRow" style="display:none; align-items:center; gap:10px; margin:-4px 0 12px; flex-wrap:wrap;">
+        <input type="color" id="customColorPicker" value="#2f7cc1" style="width:52px; height:38px; padding:2px; border-radius:8px; border:1px solid var(--glass-border); background:#fff;" />
+        <div id="customColorPreview" style="flex:1; min-width:120px; height:22px; border-radius:6px; border:1px solid var(--glass-border);"></div>
+        <span class="status" style="margin:0; flex-basis:100%;">Scegli un colore qualsiasi: creo subito una sfumatura Aero coordinata, come le altre.</span>
+      </div>
 
       <label class="field-label">Città predefinita per il meteo</label>
       <input type="text" id="setCity" placeholder="Es. Roma" />
@@ -558,20 +759,20 @@
 
       <label class="field-label">Token API AudD (per Shazam)</label>
       <input type="text" id="setAuddToken" placeholder="Incolla qui il tuo token" autocomplete="off" />
-      <p class="status" style="font-size:0.74rem; margin-top:-4px;">Gratuito su <a href="https://dashboard.audd.io" target="_blank" style="color:#0d6ab5;">dashboard.audd.io</a>.</p>
+      <p class="status" style="font-size:0.74rem; margin-top:-4px;">Gratuito su <a href="https://dashboard.audd.io" target="_blank" style="color:#0d6ab5;">dashboard.audd.io</a>. Resta sempre e solo su questo telefono.</p>
 
       <button class="btn" id="btnSaveSettings">💾 Salva impostazioni</button>
       <p class="status" id="settingsStatus"></p>
 
-      <button class="btn red" id="btnClearAll" style="margin-top:16px;">🗑 Cancella tutti i dati salvati</button>
+      <button class="btn red" id="btnClearAll" style="margin-top:16px;">🗑 Cancella tutti i dati salvati su questo telefono</button>
     </div>
   </div>
 
 </div>
 
-<p class="footer-note">Nessun download di app: gira tutto nel browser. Impostazioni e appunti restano solo su questo telefono; gli account (se configurati) usano Firebase Authentication.</p>
+<p class="footer-note">Nessun download di app: gira tutto nel browser. Senza un account, appunti e impostazioni restano solo su questo telefono; con un account, ti seguono ovunque e spariscono dal telefono quando esci.</p>
 
-<!-- SDK Firebase (solo Authentication) — nessuna chiave segreta: queste sono chiavi pubbliche di configurazione -->
+<!-- SDK Firebase (Authentication + Firestore) — nessuna chiave segreta: queste sono chiavi pubbliche di configurazione -->
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
@@ -582,24 +783,35 @@
    chiama direttamente API pubbliche gratuite dal browser.
    ============================================================ */
 
-// ---------- Navigazione a schede ----------
+// ---------- Navigazione a schede (ricorda l'ultima visitata: si riapre come un posto conosciuto) ----------
 document.querySelectorAll('.tab').forEach(function (btn) {
   btn.addEventListener('click', function () {
     document.querySelectorAll('.tab').forEach(function (b) { b.classList.remove('is-active'); });
     document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('is-active'); });
     btn.classList.add('is-active');
     document.getElementById('p-' + btn.dataset.p).classList.add('is-active');
+    localStorage.setItem('bussola2009_lasttab', btn.dataset.p);
   });
 });
-
-// ---------- Saluto in base all'ora ----------
 (function () {
-  var h = new Date().getHours();
-  var msg = h < 12 ? 'Buongiorno! Da dove iniziamo?' :
-            h < 18 ? 'Buon pomeriggio! Dimmi cosa ti serve.' :
-                     'Buonasera! Eccomi qui.';
-  document.getElementById('greeting').textContent = msg;
+  var last = localStorage.getItem('bussola2009_lasttab');
+  var btn = last && document.querySelector('.tab[data-p="' + last + '"]');
+  if (btn) btn.click();
 })();
+
+// ---------- Saluto in base all'ora, personalizzato quando si è collegati ----------
+function updateGreeting() {
+  var h = new Date().getHours();
+  var base = h < 12 ? 'Buongiorno' : h < 18 ? 'Buon pomeriggio' : 'Buonasera';
+  var name = cloudUser && (cloudUser.displayName || (cloudUser.email || '').split('@')[0]);
+  document.getElementById('greeting').textContent = name
+    ? base + ', ' + name + '! Bentornato.'
+    : base + '! Da dove iniziamo?';
+}
+updateGreeting();
+if (location.protocol === 'file:') {
+  document.getElementById('fileProtocolWarning').style.display = 'block';
+}
 
 function escapeHtml(s) {
   var d = document.createElement('div');
@@ -607,7 +819,7 @@ function escapeHtml(s) {
   return d.innerHTML;
 }
 
-// ---------- Impostazioni condivise (localStorage) ----------
+// ---------- Impostazioni condivise (localStorage = solo cache locale) ----------
 function loadSettings() {
   try {
     return JSON.parse(localStorage.getItem('bussola2009_settings')) || {};
@@ -619,8 +831,84 @@ function saveSettingsObj(obj) {
   localStorage.setItem('bussola2009_settings', JSON.stringify(obj));
 }
 
+// ---------- Temi ----------
+var CUSTOM_VAR_NAMES = [
+  '--bg1', '--bg2', '--bg3', '--bg4',
+  '--tab1', '--tab2', '--tab3', '--tab4', '--tab-border', '--tab-text',
+  '--tabA1', '--tabA2', '--tabA3', '--tabA4', '--tabA-border',
+  '--btn1', '--btn2', '--btn3', '--btn4', '--btn-border',
+  '--accent', '--accent-soft', '--glass-border',
+  '--wid1', '--wid2', '--wid3',
+  '--chipA1', '--chipA2', '--chipA3', '--chipA4', '--chipA-border'
+];
+
+function hexToHsl(hex) {
+  hex = hex.replace('#', '');
+  var r = parseInt(hex.substr(0, 2), 16) / 255;
+  var g = parseInt(hex.substr(2, 2), 16) / 255;
+  var b = parseInt(hex.substr(4, 2), 16) / 255;
+  var max = Math.max(r, g, b), min = Math.min(r, g, b);
+  var h = 0, s = 0, l = (max + min) / 2;
+  if (max !== min) {
+    var d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+    else if (max === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h *= 60;
+  }
+  return { h: h, s: s * 100, l: l * 100 };
+}
+function hslToHex(h, s, l) {
+  h = ((h % 360) + 360) % 360; s = Math.max(0, Math.min(100, s)) / 100; l = Math.max(0, Math.min(100, l)) / 100;
+  var c = (1 - Math.abs(2 * l - 1)) * s;
+  var x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  var m = l - c / 2, r, g, b;
+  if (h < 60) { r = c; g = x; b = 0; } else if (h < 120) { r = x; g = c; b = 0; }
+  else if (h < 180) { r = 0; g = c; b = x; } else if (h < 240) { r = 0; g = x; b = c; }
+  else if (h < 300) { r = x; g = 0; b = c; } else { r = c; g = 0; b = x; }
+  function toHex(v) { return Math.round((v + m) * 255).toString(16).padStart(2, '0'); }
+  return '#' + toHex(r) + toHex(g) + toHex(b);
+}
+
+// Da un solo colore scelto liberamente, genera una palette completa in stile
+// Aero (sfumature chiare per lo sfondo, medie per le schede, scure per i
+// pulsanti), esattamente come i temi predefiniti — così i colori possibili
+// sono in pratica illimitati, non solo i sei già pronti.
+function buildCustomVars(hex) {
+  var hsl = hexToHsl(hex);
+  var sat = Math.max(hsl.s, 35);
+  function shade(l, s) { return hslToHex(hsl.h, s == null ? sat : s, l); }
+  function accentShade(l, s) { return hslToHex((hsl.h + 150) % 360, s == null ? sat : s, l); }
+  return {
+    '--bg1': shade(94, sat * 0.5), '--bg2': shade(80), '--bg3': shade(58), '--bg4': shade(38),
+    '--tab1': '#ffffff', '--tab2': shade(92, sat * 0.45), '--tab3': shade(82, sat * 0.6), '--tab4': shade(70),
+    '--tab-border': shade(64), '--tab-text': shade(27, Math.min(sat + 15, 100)),
+    '--tabA1': shade(70), '--tabA2': shade(50), '--tabA3': shade(35), '--tabA4': shade(23), '--tabA-border': shade(27),
+    '--btn1': shade(72), '--btn2': shade(50), '--btn3': shade(35), '--btn4': shade(23), '--btn-border': shade(27),
+    '--accent': shade(24, Math.min(sat + 15, 100)), '--accent-soft': shade(42), '--glass-border': shade(64),
+    '--wid1': shade(56), '--wid2': shade(35), '--wid3': shade(22),
+    '--chipA1': accentShade(78), '--chipA2': accentShade(56), '--chipA3': accentShade(40), '--chipA4': accentShade(26), '--chipA-border': accentShade(26)
+  };
+}
+
+function applyTheme(theme, customColor) {
+  theme = theme || 'blu';
+  document.body.className = 'theme-' + theme;
+  CUSTOM_VAR_NAMES.forEach(function (v) { document.body.style.removeProperty(v); });
+  var preview = document.getElementById('customColorPreview');
+  if (theme === 'personalizzato' && customColor) {
+    var vars = buildCustomVars(customColor);
+    Object.keys(vars).forEach(function (k) { document.body.style.setProperty(k, vars[k]); });
+    if (preview) preview.style.background = 'linear-gradient(90deg, ' + vars['--btn1'] + ', ' + vars['--btn3'] + ', ' + vars['--btn4'] + ')';
+  }
+  var row = document.getElementById('customColorRow');
+  if (row) row.style.display = theme === 'personalizzato' ? 'flex' : 'none';
+}
+applyTheme(loadSettings().theme, loadSettings().customColor);
+
 // ============================================================
-// ACCOUNT — Firebase Authentication (username + password)
+// ACCOUNT — Firebase Authentication (email reale + nome utente pubblico)
 // ============================================================
 // Compila questi valori con quelli del TUO progetto Firebase gratuito
 // (console.firebase.google.com → Impostazioni progetto → Le tue app).
@@ -631,9 +919,24 @@ var FIREBASE_CONFIG = {
   projectId: "assistente-ffe11",
   appId: "1:1093499265024:web:550bc5411826a669aa38e5"
 };
-var AUTH_EMAIL_DOMAIN = '@bussola2009.local'; // trasforma lo username in una "email" interna per Firebase
+// Regole Firestore consigliate (Console Firebase → Firestore Database → Regole):
+//
+// rules_version = '2';
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /users/{uid} {
+//       allow read, write: if request.auth != null && request.auth.uid == uid;
+//     }
+//     match /usernames/{name} {
+//       allow read: if true; // serve per trovare l'email da un nome utente, es. al login
+//       allow create: if request.auth != null
+//                     && !exists(/databases/$(database)/documents/usernames/$(name));
+//       allow update, delete: if false;
+//     }
+//   }
+// }
 
-// Esposti fuori dalla IIFE così le altre sezioni (Appunti, Assistente) possono
+// Esposti fuori dalla IIFE così le altre sezioni (Appunti) possono
 // salvare/leggere i dati sull'account quando l'utente è collegato.
 var cloudUser = null;   // oggetto Firebase user, o null se non collegato
 var cloudDb = null;     // riferimento Firestore, valido solo se configurato
@@ -656,6 +959,9 @@ var cloudDb = null;     // riferimento Firestore, valido solo se configurato
   // Fix: impostiamo esplicitamente la persistenza con un fallback a cascata,
   // e mettiamo comunque un timeout di sicurezza sul login/registrazione così
   // l'utente vede sempre un messaggio, invece di un caricamento infinito.
+  // Nota: questa persistenza riguarda solo la SESSIONE (essere "ricordati"
+  // su questo telefono). I dati dell'app (appunti, impostazioni) non usano
+  // mai questo meccanismo: vivono nel documento Firestore dell'account.
   var persistenceReady = auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     .catch(function () {
       return auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
@@ -666,35 +972,58 @@ var cloudDb = null;     // riferimento Firestore, valido solo se configurato
     .catch(function () { /* proseguiamo comunque: peggio che vada, niente persistenza */ });
 
   var authMode = 'login';
-  document.querySelectorAll('#chipsAuthMode .chip').forEach(function (c) {
-    c.addEventListener('click', function () {
-      document.querySelectorAll('#chipsAuthMode .chip').forEach(function (x) { x.classList.remove('is-active'); });
-      c.classList.add('is-active');
-      authMode = c.dataset.v;
-      document.getElementById('btnAuthSubmit').textContent = authMode === 'login' ? '🔐 Accedi' : '✏️ Registrati';
-      document.getElementById('authStatus').textContent = '';
+  function setAuthMode(mode) {
+    authMode = mode;
+    document.querySelectorAll('#chipsAuthMode .chip').forEach(function (x) {
+      x.classList.toggle('is-active', x.dataset.v === mode);
     });
+    document.getElementById('authEmail').style.display = mode === 'register' ? 'block' : 'none';
+    document.getElementById('authUsername').placeholder = mode === 'register' ? 'Nome utente' : 'Nome utente o email';
+    document.getElementById('btnAuthSubmit').textContent = mode === 'login' ? '🔐 Accedi' : '✏️ Registrati';
+    document.getElementById('authStatus').textContent = '';
+  }
+  document.querySelectorAll('#chipsAuthMode .chip').forEach(function (c) {
+    c.addEventListener('click', function () { setAuthMode(c.dataset.v); });
   });
 
-  function usernameToEmail(u) {
-    return u.trim().toLowerCase().replace(/[^a-z0-9._-]/g, '') + AUTH_EMAIL_DOMAIN;
+  function usernameKey(u) {
+    return u.trim().toLowerCase().replace(/[^a-z0-9._-]/g, '');
+  }
+  var FAKE_EMAIL_DOMAIN = '@bussola2009.local'; // usato solo se non viene data un'email vera
+
+  // Da "nome utente o email" arriva a un'email reale usabile con Firebase Auth.
+  function resolveEmail(identifier) {
+    identifier = (identifier || '').trim();
+    if (!identifier) return Promise.reject({ code: 'empty' });
+    if (identifier.indexOf('@') !== -1) return Promise.resolve(identifier.toLowerCase());
+    var key = usernameKey(identifier);
+    if (!key) return Promise.reject({ code: 'empty' });
+    return cloudDb.collection('usernames').doc(key).get().then(function (doc) {
+      if (!doc.exists) { throw { code: 'auth/user-not-found' }; }
+      return doc.data().email;
+    });
   }
 
   function translateAuthError(code) {
     var map = {
-      'auth/email-already-in-use': 'Nome utente già in uso.',
-      'auth/invalid-email': 'Nome utente non valido.',
+      'empty': 'Compila tutti i campi.',
+      'auth/email-already-in-use': 'Questa email è già registrata.',
+      'auth/invalid-email': 'Email non valida.',
       'auth/weak-password': 'Password troppo corta (minimo 6 caratteri).',
-      'auth/user-not-found': 'Nome utente non trovato.',
+      'auth/user-not-found': 'Nome utente o email non trovati.',
       'auth/wrong-password': 'Password errata.',
-      'auth/invalid-credential': 'Nome utente o password errati.',
-      'auth/too-many-requests': 'Troppi tentativi: riprova tra poco.'
+      'auth/invalid-credential': 'Nome utente/email o password errati.',
+      'auth/too-many-requests': 'Troppi tentativi: riprova tra poco.',
+      'username-taken': 'Nome utente già in uso.',
+      'no-real-email': 'Questo account non ha un\u2019email vera collegata (non è stata data in fase di registrazione), quindi non posso inviare un link di recupero. Se riesci ad accedere, puoi comunque cambiare la password dalle Impostazioni.',
+      'permission-denied': 'Il database non ha ancora le regole giuste: vedi il commento vicino a FIREBASE_CONFIG nel codice.'
     };
     return map[code] || 'Si è verificato un errore. Riprova.';
   }
 
   document.getElementById('btnAuthSubmit').addEventListener('click', function () {
     var username = document.getElementById('authUsername').value.trim();
+    var email = document.getElementById('authEmail').value.trim().toLowerCase();
     var password = document.getElementById('authPassword').value;
     var statusEl = document.getElementById('authStatus');
     var btn = document.getElementById('btnAuthSubmit');
@@ -704,7 +1033,7 @@ var cloudDb = null;     // riferimento Firestore, valido solo se configurato
       statusEl.textContent = 'Compila nome utente e password.';
       return;
     }
-    var email = usernameToEmail(username);
+
     statusEl.className = 'status';
     statusEl.textContent = authMode === 'login' ? 'Accesso in corso…' : 'Registrazione in corso…';
     btn.disabled = true;
@@ -719,32 +1048,117 @@ var cloudDb = null;     // riferimento Firestore, valido solo se configurato
       btn.disabled = false;
     }, 12000);
 
-    persistenceReady.then(function () {
-      var action = authMode === 'login'
-        ? auth.signInWithEmailAndPassword(email, password)
-        : auth.createUserWithEmailAndPassword(email, password);
-
-      return action.then(function (cred) {
-        if (authMode === 'register') {
-          return cred.user.updateProfile({ displayName: username });
-        }
-      });
-    }).then(function () {
+    function finish(errCode) {
       if (timedOut) return;
       clearTimeout(safetyTimer);
-      statusEl.textContent = authMode === 'register' ? 'Registrato con successo ✓' : '';
+      btn.disabled = false;
+      if (errCode) {
+        statusEl.className = 'status err';
+        statusEl.textContent = translateAuthError(errCode);
+      } else {
+        statusEl.className = 'status';
+        statusEl.textContent = authMode === 'register' ? 'Registrato con successo ✓' : '';
+      }
+    }
+
+    persistenceReady.then(function () {
+      if (authMode === 'register') {
+        var key = usernameKey(username);
+        if (!key) return Promise.reject({ code: 'empty' });
+        var realEmail = email || (key + FAKE_EMAIL_DOMAIN);
+        var usernameRef = cloudDb.collection('usernames').doc(key);
+        return usernameRef.get().then(function (doc) {
+          if (doc.exists) throw { code: 'username-taken' };
+          return auth.createUserWithEmailAndPassword(realEmail, password);
+        }).then(function (cred) {
+          return cred.user.updateProfile({ displayName: username }).then(function () {
+            return usernameRef.set({ email: realEmail, hasRealEmail: !!email }).catch(function (err) {
+              // La registrazione Auth è comunque riuscita: segnaliamo solo
+              // che il nome utente potrebbe non funzionare per login/recupero.
+              console.error('Impossibile salvare il nome utente pubblico:', err);
+            });
+          });
+        });
+      } else {
+        return resolveEmail(username).then(function (realEmail) {
+          return auth.signInWithEmailAndPassword(realEmail, password);
+        });
+      }
+    }).then(function () {
+      finish(null);
+    }).catch(function (err) {
+      finish((err && err.code) || 'unknown');
+    });
+  });
+
+  document.getElementById('btnForgotOpen').addEventListener('click', function () {
+    document.getElementById('authFormView').style.display = 'none';
+    document.getElementById('forgotView').style.display = 'block';
+    document.getElementById('forgotStatus').textContent = '';
+  });
+  document.getElementById('btnForgotBack').addEventListener('click', function () {
+    document.getElementById('forgotView').style.display = 'none';
+    document.getElementById('authFormView').style.display = 'block';
+  });
+  document.getElementById('btnForgotSend').addEventListener('click', function () {
+    var identifier = document.getElementById('forgotIdentifier').value;
+    var statusEl = document.getElementById('forgotStatus');
+    var btn = document.getElementById('btnForgotSend');
+    statusEl.className = 'status';
+    statusEl.textContent = 'Invio in corso…';
+    btn.disabled = true;
+
+    resolveEmail(identifier).then(function (email) {
+      if (email.indexOf(FAKE_EMAIL_DOMAIN) !== -1) {
+        return Promise.reject({ code: 'no-real-email' });
+      }
+      return auth.sendPasswordResetEmail(email);
+    }).then(function () {
+      statusEl.className = 'status ok';
+      statusEl.textContent = 'Email inviata! Controlla la posta (anche lo spam).';
       btn.disabled = false;
     }).catch(function (err) {
-      if (timedOut) return;
-      clearTimeout(safetyTimer);
       statusEl.className = 'status err';
-      statusEl.textContent = translateAuthError(err.code);
+      statusEl.textContent = translateAuthError((err && err.code) || 'unknown');
       btn.disabled = false;
     });
   });
 
   document.getElementById('btnLogout').addEventListener('click', function () {
     auth.signOut();
+  });
+
+  document.getElementById('btnChangePw').addEventListener('click', function () {
+    var current = document.getElementById('changePwCurrent').value;
+    var fresh = document.getElementById('changePwNew').value;
+    var statusEl = document.getElementById('changePwStatus');
+    var btn = document.getElementById('btnChangePw');
+    var user = auth.currentUser;
+    if (!user) return;
+    if (!current || !fresh) {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Compila entrambi i campi.';
+      return;
+    }
+    statusEl.className = 'status';
+    statusEl.textContent = 'Aggiornamento in corso…';
+    btn.disabled = true;
+
+    var cred = firebase.auth.EmailAuthProvider.credential(user.email, current);
+    user.reauthenticateWithCredential(cred)
+      .then(function () { return user.updatePassword(fresh); })
+      .then(function () {
+        statusEl.className = 'status ok';
+        statusEl.textContent = 'Password aggiornata ✓';
+        document.getElementById('changePwCurrent').value = '';
+        document.getElementById('changePwNew').value = '';
+        btn.disabled = false;
+      })
+      .catch(function (err) {
+        statusEl.className = 'status err';
+        statusEl.textContent = translateAuthError((err && err.code) || 'unknown');
+        btn.disabled = false;
+      });
   });
 
   auth.onAuthStateChanged(function (user) {
@@ -754,23 +1168,33 @@ var cloudDb = null;     // riferimento Firestore, valido solo se configurato
     if (user) {
       loggedOutEl.style.display = 'none';
       loggedInEl.style.display = 'block';
-      var shown = user.displayName || (user.email || '').replace(AUTH_EMAIL_DOMAIN, '');
-      document.getElementById('accountUsername').textContent = shown;
+      document.getElementById('accountUsername').textContent = user.displayName || user.email;
       if (typeof onCloudLogin === 'function') onCloudLogin(user);
+      if (typeof updateGreeting === 'function') updateGreeting();
     } else {
       loggedOutEl.style.display = 'block';
       loggedInEl.style.display = 'none';
+      document.getElementById('authFormView').style.display = 'block';
+      document.getElementById('forgotView').style.display = 'none';
       document.getElementById('authUsername').value = '';
+      document.getElementById('authEmail').value = '';
       document.getElementById('authPassword').value = '';
+      document.getElementById('changePwCurrent').value = '';
+      document.getElementById('changePwNew').value = '';
+      setAuthMode('login');
       if (typeof onCloudLogout === 'function') onCloudLogout();
+      if (typeof updateGreeting === 'function') updateGreeting();
     }
   });
 })();
 
 // ============================================================
-// SALVATAGGIO SU ACCOUNT — appunti e cronologia domande su Firestore
+// SALVATAGGIO SU ACCOUNT — appunti e impostazioni su Firestore
 // ============================================================
-// Un solo documento per utente: users/{uid}, con i campi "notes" e "history".
+// Un solo documento per utente: users/{uid}, con i campi "notes" e "settings".
+// Finché non sei collegato, tutto resta solo nella cache locale (localStorage).
+// Appena esci dall'account, la cache locale viene svuotata: i dati restano
+// al sicuro sull'account, non sul telefono.
 function cloudDocRef() {
   if (!cloudDb || !cloudUser) return null;
   return cloudDb.collection('users').doc(cloudUser.uid);
@@ -784,33 +1208,56 @@ function cloudSave(fields) {
   });
 }
 
+function applySettingsToUI(s) {
+  document.getElementById('setCity').value = s.city || '';
+  document.getElementById('setAuddToken').value = s.auddToken || '';
+  var unit = s.tempUnit || 'C';
+  document.querySelectorAll('#chipsTempUnit .chip').forEach(function (c) {
+    c.classList.toggle('is-active', c.dataset.v === unit);
+  });
+  var theme = s.theme || 'blu';
+  document.querySelectorAll('#chipsTheme .chip').forEach(function (c) {
+    c.classList.toggle('is-active', c.dataset.v === theme);
+  });
+  if (s.customColor) document.getElementById('customColorPicker').value = s.customColor;
+  applyTheme(theme, s.customColor);
+}
+
 function onCloudLogin(user) {
   var ref = cloudDocRef();
   if (!ref) return;
   ref.get().then(function (doc) {
     var data = doc.exists ? doc.data() : {};
-    // Appunti: se sul cloud c'è già qualcosa, sostituisce quello locale.
+    // Appunti: se sull'account c'è già qualcosa, sostituisce quello locale.
     if (typeof data.notes === 'string') {
       var area = document.getElementById('notepadArea');
       area.value = data.notes;
       localStorage.setItem('bussola2009_notes', data.notes);
     }
-    // Cronologia: uniamo quella cloud con quella locale, senza duplicati, più recenti prima.
-    var cloudHistory = Array.isArray(data.history) ? data.history : [];
-    var localHistory = loadHistory();
-    var merged = cloudHistory.concat(localHistory).filter(function (item, idx, arr) {
-      return arr.findIndex(function (o) { return o.q === item.q && o.t === item.t; }) === idx;
-    }).sort(function (a, b) { return b.t - a.t; }).slice(0, 200);
-    saveHistory(merged, true);
-    document.getElementById('assistCloudNote').textContent = ' e sul tuo account';
+    // Impostazioni: quelle sull'account vincono (mantenendo il token AudD
+    // locale, che resta sempre e solo sul telefono per scelta).
+    if (data.settings && typeof data.settings === 'object') {
+      var merged = loadSettings();
+      var localAuddToken = merged.auddToken;
+      merged = Object.assign({}, merged, data.settings);
+      if (localAuddToken) merged.auddToken = localAuddToken;
+      saveSettingsObj(merged);
+      applySettingsToUI(merged);
+    }
+    document.getElementById('notesLede').textContent = 'Come un post-it digitale, salvato sul tuo account: lo ritrovi ovunque accedi.';
   }).catch(function (err) {
     console.error('Lettura dati account non riuscita:', err);
   });
 }
 
 function onCloudLogout() {
-  var el = document.getElementById('assistCloudNote');
-  if (el) el.textContent = '';
+  // I dati restano sull'account: qui puliamo solo la cache sul telefono,
+  // così un altro account (o l'uso da ospite) riparte pulito.
+  localStorage.removeItem('bussola2009_notes');
+  localStorage.removeItem('bussola2009_settings');
+  document.getElementById('notepadArea').value = '';
+  document.getElementById('notesLede').textContent = "Come un post-it digitale. Se hai un account collegato viene salvato lì; altrimenti resta solo su questo telefono.";
+  applySettingsToUI({});
 }
 
 // ============================================================
@@ -821,6 +1268,21 @@ var OVERPASS_TAGS = {
   bancomat: 'amenity=atm', ristorante: 'amenity=restaurant', farmacia: 'amenity=pharmacy',
   bar: 'amenity=bar', supermercato: 'shop=supermarket', distributore: 'amenity=fuel'
 };
+// overpass-api.de è un unico server pubblico condiviso: spesso è lento o
+// sovraccarico e risponde con errore anche se il sito è pubblicato bene
+// (non è un problema di file:// come altrove). Proviamo più server in fila.
+var OVERPASS_ENDPOINTS = [
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+  'https://overpass.openstreetmap.ru/api/interpreter'
+];
+function queryOverpass(query, idx) {
+  idx = idx || 0;
+  if (idx >= OVERPASS_ENDPOINTS.length) return Promise.reject(new Error('nessun server disponibile'));
+  return fetch(OVERPASS_ENDPOINTS[idx], { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: query })
+    .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .catch(function () { return queryOverpass(query, idx + 1); });
+}
 
 document.querySelectorAll('#chipsPlace .chip').forEach(function (c) {
   c.addEventListener('click', function () {
@@ -837,6 +1299,38 @@ function distanceKm(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+// Renderizza un elenco di posti {name, lat, lon, dist} — condiviso sia dalla
+// ricerca per categoria sia dalla ricerca libera qui sotto.
+function renderNearbyPlaces(places, statusEl, listEl, emptyMsg) {
+  if (!places.length) {
+    statusEl.className = 'status';
+    statusEl.textContent = emptyMsg || 'Nessun risultato nelle vicinanze.';
+    listEl.innerHTML = '';
+    return;
+  }
+  statusEl.className = 'status';
+  statusEl.textContent = places.length + ' risultati trovati:';
+  listEl.innerHTML = places.slice(0, 10).map(function (p, i) {
+    return '<div class="result"><b>' + escapeHtml(p.name) + '</b><br>' +
+      '<span class="meta">' + p.dist.toFixed(2) + ' km</span><br>' +
+      '<button type="button" class="wikiLinkBtn" data-i="' + i + '">📍 Mostra sulla mappa →</button></div>';
+  }).join('');
+  listEl.querySelectorAll('.wikiLinkBtn').forEach(function (btn) {
+    btn.addEventListener('click', function () { openNearbyMap(places[+btn.dataset.i]); });
+  });
+}
+
+function getGpsPosition() {
+  return new Promise(function (resolve, reject) {
+    if (!navigator.geolocation) { reject(new Error('no-geo')); return; }
+    navigator.geolocation.getCurrentPosition(
+      function (pos) { resolve(pos); },
+      function () { reject(new Error('denied')); },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  });
+}
+
 document.getElementById('btnNearby').addEventListener('click', function () {
   var statusEl = document.getElementById('nearbyStatus');
   var listEl = document.getElementById('nearbyList');
@@ -850,90 +1344,163 @@ document.getElementById('btnNearby').addEventListener('click', function () {
     return;
   }
 
-  navigator.geolocation.getCurrentPosition(function (pos) {
+  getGpsPosition().then(function (pos) {
     var lat = pos.coords.latitude, lon = pos.coords.longitude;
     statusEl.textContent = 'Ricerca in corso…';
 
     var tag = OVERPASS_TAGS[placeType].split('=');
-    var query = '[out:json][timeout:15];(node["' + tag[0] + '"="' + tag[1] + '"](around:2000,' + lat + ',' + lon + ');way["' + tag[0] + '"="' + tag[1] + '"](around:2000,' + lat + ',' + lon + '););out center 15;';
+    var query = '[out:json][timeout:20];(node["' + tag[0] + '"="' + tag[1] + '"](around:2000,' + lat + ',' + lon + ');way["' + tag[0] + '"="' + tag[1] + '"](around:2000,' + lat + ',' + lon + '););out center 15;';
 
-    fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: query })
-      .then(function (r) { return r.json(); })
+    queryOverpass(query)
       .then(function (data) {
         var places = (data.elements || []).map(function (el) {
           var la = el.lat || (el.center && el.center.lat);
           var lo = el.lon || (el.center && el.center.lon);
           if (!la || !lo) return null;
-          return {
-            name: (el.tags && el.tags.name) || 'Senza nome',
-            lat: la, lon: lo,
-            dist: distanceKm(lat, lon, la, lo)
-          };
+          return { name: (el.tags && el.tags.name) || 'Senza nome', lat: la, lon: lo, dist: distanceKm(lat, lon, la, lo) };
         }).filter(Boolean).sort(function (a, b) { return a.dist - b.dist; });
-
-        if (places.length === 0) {
-          statusEl.textContent = 'Nessun risultato entro 2 km.';
-          return;
-        }
-        statusEl.textContent = places.length + ' risultati trovati:';
-        listEl.innerHTML = places.slice(0, 8).map(function (p) {
-          return '<div class="result"><b>' + escapeHtml(p.name) + '</b><br>' +
-            '<span class="meta">' + p.dist.toFixed(2) + ' km</span><br>' +
-            '<a href="https://www.openstreetmap.org/directions?to=' + p.lat + '%2C' + p.lon + '" target="_blank">Indicazioni →</a></div>';
-        }).join('');
+        renderNearbyPlaces(places, statusEl, listEl, 'Nessun risultato entro 2 km.');
       })
       .catch(function () {
         statusEl.className = 'status err';
-        statusEl.textContent = 'Servizio non raggiungibile in questo momento.';
+        statusEl.textContent = 'Nessuno dei server delle mappe risponde in questo momento: riprova tra poco.';
       });
-  }, function (err) {
+  }, function () {
     statusEl.className = 'status err';
     statusEl.textContent = 'Permesso GPS negato o non disponibile.';
-  }, { enableHighAccuracy: true, timeout: 10000 });
+  });
+});
+
+// ---------- Ricerca libera: "cerca qualcos'altro qui vicino" ----------
+document.getElementById('btnNearbySearch').addEventListener('click', function () {
+  var term = document.getElementById('nearbySearchInput').value.trim();
+  var statusEl = document.getElementById('nearbyStatus');
+  var listEl = document.getElementById('nearbyList');
+  if (!term) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Scrivi cosa vuoi cercare (es. "libreria", "parrucchiere"...).';
+    return;
+  }
+  listEl.innerHTML = '';
+  statusEl.className = 'status';
+  statusEl.textContent = 'Individuazione posizione…';
+
+  getGpsPosition().then(function (pos) {
+    var lat = pos.coords.latitude, lon = pos.coords.longitude;
+    statusEl.textContent = 'Cerco «' + term + '» qui vicino…';
+    var d = 0.06; // circa 6 km di raggio
+    var viewbox = (lon - d) + ',' + (lat + d) + ',' + (lon + d) + ',' + (lat - d);
+
+    fetch('https://nominatim.openstreetmap.org/search?format=json&limit=15&viewbox=' + viewbox + '&bounded=1&q=' + encodeURIComponent(term))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var places = (data || []).map(function (r) {
+          var la = parseFloat(r.lat), lo = parseFloat(r.lon);
+          return { name: r.display_name.split(',')[0], lat: la, lon: lo, dist: distanceKm(lat, lon, la, lo) };
+        }).sort(function (a, b) { return a.dist - b.dist; });
+        renderNearbyPlaces(places, statusEl, listEl, 'Nessun risultato per «' + term + '» qui vicino.');
+      })
+      .catch(function () {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Servizio di ricerca non raggiungibile in questo momento.';
+      });
+  }, function () {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Permesso GPS negato o non disponibile.';
+  });
+});
+
+function openNearbyMap(p) {
+  document.getElementById('nearbyListView').style.display = 'none';
+  document.getElementById('nearbyMapView').style.display = 'block';
+  var d = 0.006; // piccolo riquadro attorno al punto
+  var bbox = (p.lon - d) + ',' + (p.lat - d) + ',' + (p.lon + d) + ',' + (p.lat + d);
+  document.getElementById('osm2009Container').innerHTML =
+    '<div class="osm2009-bar"><span>🗺️ ' + escapeHtml(p.name) + '</span><span>' + p.dist.toFixed(2) + ' km</span></div>' +
+    '<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=' + bbox + '&marker=' + p.lat + '%2C' + p.lon + '" loading="lazy"></iframe>' +
+    '<div class="osm2009-foot"><a href="https://www.openstreetmap.org/directions?to=' + p.lat + '%2C' + p.lon + '" target="_blank">Apri indicazioni complete su OpenStreetMap →</a></div>';
+}
+document.getElementById('btnNearbyMapBack').addEventListener('click', function () {
+  document.getElementById('nearbyMapView').style.display = 'none';
+  document.getElementById('nearbyListView').style.display = 'block';
 });
 
 // ============================================================
 // 2) BATTUTE — JokeAPI esterna + generatore locale in italiano
 // ============================================================
-var BANKS = {
-  prof: ['fornaio', 'elettricista', 'pescatore', 'postino', 'giardiniere', 'dentista', 'astronauta', 'apicoltore'],
-  colmi: ['restare senza pane', 'avere paura della corrente', 'soffrire il mal di mare', 'perdersi per strada', 'essere allergico ai fiori', 'avere il terrore del trapano', 'non saper parcheggiare', 'avere paura del vuoto'],
-  animali: ['pollo', 'gatto', 'criceto', 'pinguino', 'panda', 'canguro'],
-  luoghi: ['la strada', 'il centro commerciale', 'il parco', 'la spiaggia'],
-  motivi: ['per arrivare dall\u2019altra parte', 'perché aveva un appuntamento', 'per sfuggire al meteo', 'per vincere una scommessa']
-};
+// I "colmi" funzionano solo se la battuta è davvero legata alla professione
+// (è un gioco di parole): prima pescavano professione e battuta da due liste
+// indipendenti, quindi la maggior parte degli abbinamenti non aveva senso.
+// Ora sono coppie fisse, scelte perché il gioco di parole regge davvero.
+var COLMI = [
+  { prof: 'un fornaio', colmo: 'Restare senza pane!' },
+  { prof: 'un elettricista', colmo: 'Avere paura della corrente!' },
+  { prof: 'un pescatore', colmo: 'Soffrire il mal di mare!' },
+  { prof: 'un postino', colmo: 'Perdersi per strada!' },
+  { prof: 'un giardiniere', colmo: 'Essere allergico ai fiori!' },
+  { prof: 'un dentista', colmo: 'Avere il terrore del trapano!' },
+  { prof: 'un astronauta', colmo: 'Avere paura del vuoto!' },
+  { prof: 'un apicoltore', colmo: 'Essere allergico alle punture!' },
+  { prof: 'un vigile urbano', colmo: 'Non saper parcheggiare!' },
+  { prof: 'un benzinaio', colmo: 'Rimanere sempre a secco!' },
+  { prof: 'un macellaio', colmo: 'Tagliare sempre corto!' },
+  { prof: 'un idraulico', colmo: 'Trovarsi con l\u2019acqua alla gola!' },
+  { prof: 'un barbiere', colmo: 'Litigare sempre per un pelo!' },
+  { prof: 'un orologiaio', colmo: 'Non avere mai tempo!' }
+];
+var ANIMALI = ['pollo', 'gatto', 'criceto', 'pinguino', 'panda', 'canguro'];
+var LUOGHI = ['la strada', 'il centro commerciale', 'il parco', 'la spiaggia'];
+var MOTIVI = ['per arrivare dall\u2019altra parte', 'perché aveva un appuntamento', 'per sfuggire al meteo', 'per vincere una scommessa'];
 function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
-function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
 function localJoke() {
   if (Math.random() < 0.5) {
-    return { setup: 'Qual è il colmo per un ' + pick(BANKS.prof) + '?', punch: cap(pick(BANKS.colmi)) + '!' };
+    var c = pick(COLMI);
+    return { setup: 'Qual è il colmo per ' + c.prof + '?', punch: c.colmo };
   }
-  return { setup: 'Perché il ' + pick(BANKS.animali) + ' ha attraversato ' + pick(BANKS.luoghi) + '?', punch: cap(pick(BANKS.motivi)) + '!' };
+  return { setup: 'Perché il ' + pick(ANIMALI) + ' ha attraversato ' + pick(LUOGHI) + '?', punch: cap(pick(MOTIVI)) + '!' };
 }
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
 document.getElementById('btnJoke').addEventListener('click', function () {
   var box = document.getElementById('jokeBox');
   var setupEl = document.getElementById('jokeSetup');
   var punchEl = document.getElementById('jokePunch');
+  var btn = document.getElementById('btnJoke');
 
   function show(j) {
     setupEl.textContent = j.setup;
     punchEl.textContent = j.punch;
     box.style.display = 'block';
+    btn.disabled = false;
   }
 
-  if (Math.random() < 0.3) {
-    fetch('https://v2.jokeapi.dev/joke/Any?safe-mode&type=twopart,single')
+  function translateToIt(text) {
+    return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|it')
       .then(function (r) { return r.json(); })
-      .then(function (d) {
-        if (d.error) throw new Error();
-        show(d.type === 'twopart' ? { setup: d.setup, punch: d.delivery } : { setup: d.joke, punch: '(in inglese)' });
-      })
-      .catch(function () { show(localJoke()); });
-  } else {
-    show(localJoke());
+      .then(function (d) { return (d.responseData && d.responseData.translatedText) || text; });
   }
+
+  btn.disabled = true;
+  setupEl.textContent = 'Cerco una battuta nuova…';
+  punchEl.textContent = '';
+  box.style.display = 'block';
+
+  // JokeAPI ha un catalogo enorme (praticamente infinito) ma è in inglese:
+  // lo traduciamo al volo in italiano. Se il servizio non risponde, usiamo
+  // comunque un "colmo" italiano scritto a mano come riserva.
+  fetch('https://v2.jokeapi.dev/joke/Any?safe-mode&type=twopart,single')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.error) throw new Error('jokeapi error');
+      if (d.type === 'twopart') {
+        return Promise.all([translateToIt(d.setup), translateToIt(d.delivery)])
+          .then(function (res) { return { setup: res[0], punch: res[1] }; });
+      }
+      return translateToIt(d.joke).then(function (t) { return { setup: t, punch: '' }; });
+    })
+    .then(show)
+    .catch(function () { show(localJoke()); });
 });
 
 // ============================================================
@@ -968,13 +1535,48 @@ document.getElementById('btnJoke').addEventListener('click', function () {
 })();
 
 // ============================================================
-// 4) MUSICA — dataset locale + link diretti
 // ============================================================
-var MUSIC = {
-  energico: [['Uptown Funk', 'Mark Ronson ft. Bruno Mars'], ['Blinding Lights', 'The Weeknd'], ['Levitating', 'Dua Lipa']],
-  rilassato: [['Sunday Morning', 'Maroon 5'], ['Banana Pancakes', 'Jack Johnson'], ['Nuvole Bianche', 'Ludovico Einaudi']],
-  allegro: [['Azzurro', 'Adriano Celentano'], ['Happy', 'Pharrell Williams'], ['Volare', 'Domenico Modugno']],
-  malinconico: [['Skinny Love', 'Bon Iver'], ['La Cura', 'Franco Battiato'], ['Someone Like You', 'Adele']]
+// ============================================================
+// 4) MUSICA — ricerca reale su iTunes (gratuita, senza chiave), via JSONP:
+// funziona sempre, anche se il file è aperto direttamente dal telefono
+// (dove le richieste fetch normali vengono spesso bloccate dal browser).
+// ============================================================
+function jsonpRequest(url, timeoutMs) {
+  return new Promise(function (resolve, reject) {
+    var cbName = 'jsonp_cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+    var script = document.createElement('script');
+    var done = false;
+    function cleanup() {
+      done = true;
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      clearTimeout(timer);
+    }
+    var timer = setTimeout(function () {
+      if (done) return;
+      cleanup();
+      reject(new Error('timeout'));
+    }, timeoutMs || 8000);
+    window[cbName] = function (data) {
+      if (done) return;
+      cleanup();
+      resolve(data);
+    };
+    script.onerror = function () {
+      if (done) return;
+      cleanup();
+      reject(new Error('script error'));
+    };
+    script.src = url + (url.indexOf('?') === -1 ? '?' : '&') + 'callback=' + cbName;
+    document.body.appendChild(script);
+  });
+}
+
+var MOOD_TERMS = {
+  energico: ['dance hits', 'party pop', 'electro dance', 'summer hits', 'workout motivation', 'reggaeton hits'],
+  rilassato: ['acoustic chill', 'lo-fi relax', 'piano relax', 'jazz cafe', 'chillout lounge', 'musica rilassante'],
+  allegro: ['italian pop classics', 'feel good pop', 'happy hits', 'canzoni allegre italiane', 'sunshine pop'],
+  malinconico: ['sad acoustic', 'indie melancholy', 'ballad piano', 'canzoni malinconiche italiane', 'slow blues']
 };
 var mood = 'energico';
 document.querySelectorAll('#chipsMood .chip').forEach(function (c) {
@@ -985,13 +1587,39 @@ document.querySelectorAll('#chipsMood .chip').forEach(function (c) {
   });
 });
 document.getElementById('btnMusic').addEventListener('click', function () {
-  var tracks = MUSIC[mood];
-  document.getElementById('musicList').innerHTML = tracks.map(function (t) {
-    var q = encodeURIComponent(t[0] + ' ' + t[1]);
-    return '<div class="result"><b>' + t[0] + '</b><br><span class="meta">' + t[1] + '</span><br>' +
-      '<a href="https://open.spotify.com/search/' + q + '" target="_blank">Spotify →</a>' +
-      '<a href="https://www.youtube.com/results?search_query=' + q + '" target="_blank">YouTube →</a></div>';
-  }).join('');
+  var listEl = document.getElementById('musicList');
+  var terms = MOOD_TERMS[mood];
+  var term = terms[Math.floor(Math.random() * terms.length)];
+  listEl.innerHTML = '<p class="status">Cerco brani nuovi…</p>';
+
+  // Deezer, non iTunes: supporta ufficialmente il formato JSONP (output=jsonp),
+  // quindi funziona in modo affidabile anche da un file aperto in locale.
+  jsonpRequest('https://api.deezer.com/search?q=' + encodeURIComponent(term) + '&output=jsonp&limit=25')
+    .then(function (data) {
+      var results = (data.data || []).filter(function (t) { return t.title && t.artist && t.artist.name; });
+      if (!results.length) {
+        listEl.innerHTML = '<p class="status err">Nessun brano trovato, tocca di nuovo per riprovare.</p>';
+        return;
+      }
+      // Mescoliamo e ne teniamo 5 diversi: così ogni tocco dà un risultato nuovo.
+      var picks = results.sort(function () { return Math.random() - 0.5; }).slice(0, 5);
+      listEl.innerHTML = picks.map(function (t) {
+        var q = encodeURIComponent(t.title + ' ' + t.artist.name);
+        var cover = t.album && t.album.cover_medium;
+        var art = cover ? '<img src="' + cover + '" alt="" style="float:left;width:50px;height:50px;border-radius:6px;margin-right:10px;">' : '';
+        var preview = t.preview ? '<audio controls preload="none" src="' + t.preview + '" style="width:100%;margin-top:8px;"></audio>' : '';
+        return '<div class="result">' + art + '<b>' + escapeHtml(t.title) + '</b><br><span class="meta">' + escapeHtml(t.artist.name) + '</span>' +
+          '<div style="clear:both;"></div>' + preview +
+          '<a href="' + t.link + '" target="_blank">Deezer →</a>' +
+          '<a href="https://open.spotify.com/search/' + q + '" target="_blank">Spotify →</a>' +
+          '<a href="https://www.youtube.com/results?search_query=' + q + '" target="_blank">YouTube →</a></div>';
+      }).join('');
+    })
+    .catch(function () {
+      listEl.innerHTML = '<p class="status err">' + (location.protocol === 'file:'
+        ? 'Servizio musica non raggiungibile: il browser blocca le richieste da un file aperto in locale.'
+        : 'Servizio musica non raggiungibile in questo momento. Riprova tra poco.') + '</p>';
+    });
 });
 
 // ============================================================
@@ -1036,25 +1664,34 @@ function openWikiArticle(title, fallbackUrl) {
   document.getElementById('searchListView').style.display = 'none';
   var articleView = document.getElementById('wikiArticleView');
   var contentEl = document.getElementById('wikiArticleContent');
+  var head = '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>';
   articleView.style.display = 'block';
-  contentEl.innerHTML = '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div><p>Caricamento della voce…</p>';
+  contentEl.innerHTML = head + '<p>Caricamento della voce…</p>';
 
-  fetch('https://it.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title))
+  // action=query con prop=extracts (senza exintro) restituisce l'articolo
+  // COMPLETO con tutte le sezioni, non solo il riassunto iniziale.
+  var apiUrl = 'https://it.wikipedia.org/w/api.php?action=query&format=json&formatversion=2' +
+    '&prop=extracts%7Cpageimages&exlimit=1&piprop=original&redirects=1' +
+    '&titles=' + encodeURIComponent(title) + '&origin=*';
+
+  fetch(apiUrl)
     .then(function (r) { return r.json(); })
     .then(function (data) {
-      var pageUrl = (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || fallbackUrl;
-      var thumb = data.thumbnail ? '<img class="wiki2009-thumb" src="' + data.thumbnail.source + '" alt="">' : '';
-      var extract = data.extract_html || ('<p>' + escapeHtml(data.extract || 'Nessuna anteprima disponibile.') + '</p>');
-      contentEl.innerHTML =
-        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
-        '<h1>' + escapeHtml(data.title || title) + '</h1>' +
+      var page = data.query && data.query.pages && data.query.pages[0];
+      if (!page || page.missing) throw new Error('non trovata');
+      var pageUrl = 'https://it.wikipedia.org/wiki/' + encodeURIComponent((page.title || title).replace(/ /g, '_'));
+      var thumb = page.original ? '<img class="wiki2009-thumb" src="' + page.original.source + '" alt="">' : '';
+      var extract = page.extract || '<p>Nessun contenuto disponibile.</p>';
+      contentEl.innerHTML = head +
+        '<h1>' + escapeHtml(page.title || title) + '</h1>' +
         thumb + extract +
-        '<div class="wiki2009-catbar">Fonte: Wikipedia in italiano · <a href="' + pageUrl + '" target="_blank">Leggi l\u2019articolo completo →</a></div>';
+        '<div class="wiki2009-catbar">Fonte: Wikipedia in italiano · <a href="' + pageUrl + '" target="_blank">Apri su Wikipedia →</a></div>';
     })
     .catch(function () {
-      contentEl.innerHTML =
-        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
-        '<p class="status err">Impossibile caricare l\u2019anteprima della voce.</p>' +
+      contentEl.innerHTML = head +
+        '<p class="status err">' + (location.protocol === 'file:'
+          ? 'Impossibile caricare la voce: il browser blocca le richieste da un file aperto in locale.'
+          : 'Impossibile caricare la voce.') + '</p>' +
         '<div class="wiki2009-catbar"><a href="' + fallbackUrl + '" target="_blank">Apri comunque su Wikipedia →</a></div>';
     });
 }
@@ -1170,27 +1807,74 @@ var WMO = {
 };
 function wmoInfo(code) { return WMO[code] || ['Condizioni sconosciute', '🌡️']; }
 
-function renderWeather(name, current, daily, unit) {
+var weatherState = { name: '', current: null, daily: null, unit: 'C', selected: -1 };
+
+function renderWeatherCurrent() {
+  var name = weatherState.name, current = weatherState.current, unit = weatherState.unit;
   var info = wmoInfo(current.weather_code);
   var unitLabel = unit === 'F' ? '°F' : '°C';
+  weatherState.selected = -1;
   document.getElementById('weatherWidget').innerHTML =
     '<div class="weather-widget"><div class="city">' + escapeHtml(name) + '</div>' +
     '<div class="icon">' + info[1] + '</div>' +
     '<div class="temp">' + Math.round(current.temperature_2m) + unitLabel + '</div>' +
     '<div class="desc">' + info[0] + ' · percepita ' + Math.round(current.apparent_temperature) + unitLabel + '</div>' +
-    '<div class="desc">💧 ' + current.relative_humidity_2m + '% umidità · 💨 ' + Math.round(current.wind_speed_10m) + ' km/h</div>' +
+    '<div class="desc">Umidità ' + current.relative_humidity_2m + '% · Vento ' + Math.round(current.wind_speed_10m) + ' km/h</div>' +
     '</div>';
+  highlightSelectedDay();
+}
+
+function renderWeatherDay(i) {
+  var daily = weatherState.daily, unit = weatherState.unit;
+  var unitLabel = unit === 'F' ? '°F' : '°C';
+  var info = wmoInfo(daily.weather_code[i]);
+  var dateObj = new Date(daily.time[i] + 'T00:00:00');
+  var label = dateObj.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+  weatherState.selected = i;
+  var precip = daily.precipitation_sum ? daily.precipitation_sum[i] : null;
+  var windMax = daily.wind_speed_10m_max ? daily.wind_speed_10m_max[i] : null;
+  document.getElementById('weatherWidget').innerHTML =
+    '<div class="weather-widget"><div class="city">' + escapeHtml(cap(label)) + '</div>' +
+    '<div class="icon">' + info[1] + '</div>' +
+    '<div class="temp">' + Math.round(daily.temperature_2m_max[i]) + unitLabel + ' / ' + Math.round(daily.temperature_2m_min[i]) + unitLabel + '</div>' +
+    '<div class="desc">' + info[0] + '</div>' +
+    '<div class="desc">' + (precip != null ? 'Pioggia prevista ' + precip + ' mm · ' : '') + (windMax != null ? 'Vento max ' + Math.round(windMax) + ' km/h' : '') + '</div>' +
+    '</div><button class="btn" id="btnWeatherBackToday" style="margin-top:8px;">📍 Torna a adesso</button>';
+  document.getElementById('btnWeatherBackToday').addEventListener('click', renderWeatherCurrent);
+  highlightSelectedDay();
+}
+
+function highlightSelectedDay() {
+  document.querySelectorAll('.weather-day').forEach(function (el) {
+    el.classList.toggle('wd-selected', +el.dataset.i === weatherState.selected);
+  });
+}
+
+function renderWeather(name, current, daily, unit) {
+  weatherState.name = name;
+  weatherState.current = current;
+  weatherState.daily = daily;
+  weatherState.unit = unit;
+  renderWeatherCurrent();
 
   if (daily && daily.time && daily.time.length > 1) {
     var days = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
-    var fc = daily.time.slice(1, 4).map(function (d, idx) {
-      var i = idx + 1;
+    var todayStr = new Date().toISOString().slice(0, 10);
+    var fc = daily.time.map(function (d, i) {
       var info2 = wmoInfo(daily.weather_code[i]);
-      var dow = days[new Date(d).getDay()];
-      return '<div class="weather-day"><b>' + dow + '</b><div class="wd-icon">' + info2[1] + '</div>' +
-        Math.round(daily.temperature_2m_max[i]) + '° / ' + Math.round(daily.temperature_2m_min[i]) + '°</div>';
+      var dateObj = new Date(d + 'T00:00:00');
+      var isToday = d === todayStr;
+      var isPast = d < todayStr;
+      var label = isToday ? 'Oggi' : days[dateObj.getDay()];
+      var cls = 'weather-day' + (isToday ? ' wd-today' : '') + (isPast ? ' wd-past' : '');
+      return '<button type="button" class="' + cls + '" data-i="' + i + '"><b>' + label + '</b><span class="wd-date">' + dateObj.getDate() + '</span>' +
+        '<div class="wd-icon">' + info2[1] + '</div>' +
+        Math.round(daily.temperature_2m_max[i]) + '° / ' + Math.round(daily.temperature_2m_min[i]) + '°</button>';
     }).join('');
     document.getElementById('weatherForecast').innerHTML = '<div class="weather-forecast">' + fc + '</div>';
+    document.querySelectorAll('.weather-day').forEach(function (el) {
+      el.addEventListener('click', function () { renderWeatherDay(+el.dataset.i); });
+    });
   }
 }
 
@@ -1204,7 +1888,7 @@ function fetchWeatherByCoords(lat, lon, name) {
 
   fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
     '&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m' +
-    '&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4' + tempParam)
+    '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=auto&past_days=2&forecast_days=5' + tempParam)
     .then(function (r) { return r.json(); })
     .then(function (data) {
       statusEl.textContent = '';
@@ -1212,7 +1896,9 @@ function fetchWeatherByCoords(lat, lon, name) {
     })
     .catch(function () {
       statusEl.className = 'status err';
-      statusEl.textContent = 'Servizio meteo non raggiungibile.';
+      statusEl.textContent = location.protocol === 'file:'
+        ? 'Servizio meteo non raggiungibile: il browser blocca le richieste da un file aperto in locale. Vedi l\u2019avviso in alto.'
+        : 'Servizio meteo non raggiungibile.';
     });
 }
 
@@ -1234,7 +1920,9 @@ function fetchWeatherByCity(city) {
     })
     .catch(function () {
       statusEl.className = 'status err';
-      statusEl.textContent = 'Servizio non raggiungibile.';
+      statusEl.textContent = location.protocol === 'file:'
+        ? 'Servizio non raggiungibile: il browser blocca le richieste da un file aperto in locale. Vedi l\u2019avviso in alto.'
+        : 'Servizio non raggiungibile.';
     });
 }
 
@@ -1288,7 +1976,229 @@ document.querySelector('.tab[data-p="meteo"]').addEventListener('click', functio
 });
 
 // ============================================================
-// 8) TRADUTTORE — MyMemory Translation API (gratuita, senza chiave)
+// 8) NOTIZIE — feed RSS (ANSA, con ripiego su Google News) letto
+// come un giornale del 2009: elenco con foto + modalità lettura
+// pulita, navigabile avanti/indietro come un feed.
+// ============================================================
+var NEWS_FEEDS_PRIMARY = {
+  generale: 'https://www.ansa.it/sito/ansait_rss.xml',
+  tecnologia: 'https://www.ansa.it/sito/notizie/tecnologia/tecnologia_rss.xml',
+  sport: 'https://www.ansa.it/sito/notizie/sport/sport_rss.xml',
+  mondo: 'https://www.ansa.it/sito/notizie/mondo/mondo_rss.xml'
+};
+var NEWS_FEEDS_FALLBACK = {
+  generale: 'https://news.google.com/rss?hl=it&gl=IT&ceid=IT:it',
+  tecnologia: 'https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=it&gl=IT&ceid=IT:it',
+  sport: 'https://news.google.com/rss/headlines/section/topic/SPORTS?hl=it&gl=IT&ceid=IT:it',
+  mondo: 'https://news.google.com/rss/headlines/section/topic/WORLD?hl=it&gl=IT&ceid=IT:it'
+};
+var newsCurrentList = [];
+var newsCurrentIndex = -1;
+var newsSourcesUsed = {}; // per categoria, quali fonti sono già state caricate
+
+function stripHtml(html) {
+  var d = document.createElement('div');
+  d.innerHTML = html || '';
+  return d.textContent || '';
+}
+
+function fetchRss(url) {
+  return fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.status !== 'ok' || !data.items || !data.items.length) throw new Error('feed vuoto');
+      return data.items;
+    });
+}
+
+// Wikinews è scritto da zero dai volontari con licenza CC BY 2.5: possiamo
+// mostrarlo per intero, senza i limiti di copyright delle testate normali
+// (che infatti nel loro RSS danno di proposito solo un breve riassunto).
+function fetchWikinews() {
+  var rcUrl = 'https://it.wikinews.org/w/api.php?action=query&format=json&formatversion=2' +
+    '&list=recentchanges&rcnamespace=0&rctype=new&rclimit=20&rcshow=!redirect&rcprop=title|timestamp&origin=*';
+  return fetch(rcUrl).then(function (r) { return r.json(); }).then(function (d) {
+    var changes = (d.query && d.query.recentchanges) || [];
+    var titles = changes.map(function (c) { return c.title; });
+    if (!titles.length) throw new Error('nessuna voce recente');
+    var exUrl = 'https://it.wikinews.org/w/api.php?action=query&format=json&formatversion=2' +
+      '&prop=extracts%7Cpageimages&exlimit=20&piprop=original&titles=' + encodeURIComponent(titles.join('|')) + '&origin=*';
+    return fetch(exUrl).then(function (r) { return r.json(); }).then(function (d2) {
+      var pages = (d2.query && d2.query.pages) || [];
+      return pages.filter(function (p) { return !p.missing && p.extract; }).map(function (p) {
+        var rc = changes.find(function (c) { return c.title === p.title; });
+        return {
+          title: p.title,
+          description: stripHtml(p.extract).slice(0, 200),
+          content: p.extract,
+          thumbnail: p.original ? p.original.source : '',
+          link: 'https://it.wikinews.org/wiki/' + encodeURIComponent(p.title.replace(/ /g, '_')),
+          pubDate: rc ? rc.timestamp : '',
+          author: 'Wikinews (CC BY 2.5) — articolo completo'
+        };
+      });
+    });
+  });
+}
+
+// Nota onesta: il feed RSS di ogni testata contiene un numero limitato di
+// notizie (di solito 20-40). "Carica altre" non inventa nuove notizie: la
+// prima volta usa la fonte principale, poi passa a quella di riserva, così
+// lo scorrimento si allunga davvero invece di ripetere le stesse notizie.
+function fetchNews(cat, append) {
+  var statusEl = document.getElementById('newsStatus');
+  var listEl = document.getElementById('newsList');
+  var moreBtn = document.getElementById('btnNewsMore');
+
+  if (!append) {
+    newsCurrentList = [];
+    newsSourcesUsed[cat] = [];
+    listEl.innerHTML = '';
+  }
+
+  if (cat === 'wikinews') {
+    if (append) { moreBtn.style.display = 'none'; return; } // Wikinews non ha una "fonte di riserva" separata
+    statusEl.className = 'status';
+    statusEl.textContent = 'Caricamento notizie…';
+    fetchWikinews().then(function (items) {
+      newsCurrentList = items;
+      statusEl.textContent = '';
+      renderNewsList(newsCurrentList);
+      moreBtn.style.display = 'none';
+    }).catch(function () {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Servizio Wikinews non raggiungibile in questo momento.';
+    });
+    return;
+  }
+
+  var used = newsSourcesUsed[cat] || (newsSourcesUsed[cat] = []);
+  var url, sourceKey;
+  if (used.indexOf('primary') === -1) { url = NEWS_FEEDS_PRIMARY[cat]; sourceKey = 'primary'; }
+  else if (used.indexOf('fallback') === -1) { url = NEWS_FEEDS_FALLBACK[cat]; sourceKey = 'fallback'; }
+
+  if (!url) {
+    statusEl.className = 'status';
+    statusEl.textContent = newsCurrentList.length ? 'Non ci sono altre notizie da caricare qui.' : 'Nessuna notizia disponibile.';
+    moreBtn.style.display = 'none';
+    return;
+  }
+
+  statusEl.className = 'status';
+  statusEl.textContent = append ? 'Carico altre notizie…' : 'Caricamento notizie…';
+  moreBtn.disabled = true;
+
+  fetchRss(url)
+    .then(function (items) {
+      used.push(sourceKey);
+      var seen = {};
+      newsCurrentList.forEach(function (it) { seen[it.link] = true; });
+      var fresh = items.filter(function (it) { return !seen[it.link]; });
+      newsCurrentList = newsCurrentList.concat(fresh);
+      statusEl.textContent = '';
+      renderNewsList(newsCurrentList);
+      moreBtn.style.display = (used.indexOf('primary') === -1 || used.indexOf('fallback') === -1) ? 'block' : 'none';
+      moreBtn.disabled = false;
+    })
+    .catch(function () {
+      used.push(sourceKey);
+      // Se una fonte fallisce, proviamo subito con l'altra prima di arrenderci.
+      if (used.indexOf('primary') === -1 || used.indexOf('fallback') === -1) {
+        fetchNews(cat, true);
+      } else {
+        statusEl.className = 'status err';
+        statusEl.textContent = newsCurrentList.length ? 'Nessun\u2019altra notizia disponibile ora.' : 'Servizio notizie non raggiungibile in questo momento.';
+        moreBtn.style.display = 'none';
+        moreBtn.disabled = false;
+      }
+    });
+}
+
+function renderNewsList(items) {
+  var listEl = document.getElementById('newsList');
+  listEl.innerHTML = items.map(function (item, i) {
+    var img = item.thumbnail || (item.enclosure && item.enclosure.link) || '';
+    var snippet = stripHtml(item.description).trim().slice(0, 110);
+    var when = item.pubDate ? item.pubDate.split(' ')[0] : '';
+    return '<div class="result news-card" data-i="' + i + '">' +
+      (img ? '<img class="news-thumb" src="' + img + '" alt="" loading="lazy">' : '') +
+      '<b>' + escapeHtml(item.title) + '</b><br>' +
+      '<span class="meta">' + escapeHtml(snippet) + (snippet.length >= 110 ? '…' : '') + '</span><br>' +
+      '<span class="meta" style="opacity:.7;">' + escapeHtml(when) + '</span></div>';
+  }).join('');
+  listEl.querySelectorAll('.news-card').forEach(function (card) {
+    card.addEventListener('click', function () { openNewsArticle(parseInt(card.dataset.i, 10)); });
+  });
+}
+
+function openNewsArticle(index) {
+  if (index < 0 || index >= newsCurrentList.length) return;
+  newsCurrentIndex = index;
+  var item = newsCurrentList[index];
+  document.getElementById('newsListView').style.display = 'none';
+  document.getElementById('newsReaderView').style.display = 'block';
+  var img = item.thumbnail || (item.enclosure && item.enclosure.link) || '';
+  var desc = item.description || '';
+  var cont = item.content || '';
+  // Le testate normali danno di proposito solo un breve riassunto nell'RSS:
+  // qui prendiamo comunque il più lungo tra i due campi disponibili, invece
+  // di sceglierne uno a prescindere. Wikinews arriva già con l'articolo intero.
+  var body = (cont.length >= desc.length ? cont : desc) || '<p>Nessun contenuto disponibile.</p>';
+  document.getElementById('newsReaderContent').innerHTML =
+    '<div class="wiki2009-head"><span class="wiki2009-logo">Notizie</span><span class="wiki2009-tagline">' + escapeHtml(item.author || 'Fonte esterna') + '</span></div>' +
+    '<h1>' + escapeHtml(item.title) + '</h1>' +
+    (img ? '<img class="wiki2009-thumb" src="' + img + '" alt="">' : '') +
+    body +
+    '<div class="wiki2009-catbar">' + escapeHtml(item.pubDate || '') + ' · <a href="' + item.link + '" target="_blank">Apri la fonte originale →</a></div>';
+  document.getElementById('btnNewsPrev').disabled = (index <= 0);
+  document.getElementById('btnNewsNext').disabled = (index >= newsCurrentList.length - 1);
+  document.getElementById('newsReaderView').scrollIntoView({ block: 'start', behavior: 'instant' });
+}
+
+document.getElementById('btnNewsMore').addEventListener('click', function () {
+  var activeChip = document.querySelector('#chipsNewsCat .chip.is-active');
+  fetchNews(activeChip ? activeChip.dataset.v : 'generale', true);
+});
+document.querySelectorAll('#chipsNewsCat .chip').forEach(function (c) {
+  c.addEventListener('click', function () {
+    document.querySelectorAll('#chipsNewsCat .chip').forEach(function (x) { x.classList.remove('is-active'); });
+    c.classList.add('is-active');
+    fetchNews(c.dataset.v);
+  });
+});
+document.getElementById('btnNewsBack').addEventListener('click', function () {
+  document.getElementById('newsReaderView').style.display = 'none';
+  document.getElementById('newsListView').style.display = 'block';
+});
+document.getElementById('btnNewsPrev').addEventListener('click', function () { openNewsArticle(newsCurrentIndex - 1); });
+document.getElementById('btnNewsNext').addEventListener('click', function () { openNewsArticle(newsCurrentIndex + 1); });
+
+// Navigazione a scorrimento (swipe), come si sfoglia un feed social.
+(function () {
+  var reader = document.getElementById('newsReaderContent');
+  var touchStartX = null;
+  reader.addEventListener('touchstart', function (e) { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+  reader.addEventListener('touchend', function (e) {
+    if (touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 60) {
+      if (dx < 0) openNewsArticle(newsCurrentIndex + 1);
+      else openNewsArticle(newsCurrentIndex - 1);
+    }
+    touchStartX = null;
+  }, { passive: true });
+})();
+
+// al primo tocco della scheda Notizie, carica la categoria Generale
+var newsLoaded = false;
+document.querySelector('.tab[data-p="notizie"]').addEventListener('click', function () {
+  if (newsLoaded) return;
+  newsLoaded = true;
+  fetchNews('generale');
+});
+
+// ============================================================
+// 9) TRADUTTORE — MyMemory Translation API (gratuita, senza chiave)
 // ============================================================
 var langFrom = 'it', langTo = 'en';
 document.querySelectorAll('#chipsLangFrom .chip').forEach(function (c) {
@@ -1340,7 +2250,7 @@ document.getElementById('btnTranslate').addEventListener('click', function () {
 });
 
 // ============================================================
-// 9) APPUNTI — post-it salvato in localStorage
+// 10) APPUNTI — post-it, salvato in cache locale + sull'account (se collegato)
 // ============================================================
 (function () {
   var area = document.getElementById('notepadArea');
@@ -1352,7 +2262,7 @@ document.getElementById('btnTranslate').addEventListener('click', function () {
     localStorage.setItem('bussola2009_notes', area.value);
     cloudSave({ notes: area.value });
     statusEl.className = 'status';
-    statusEl.textContent = cloudUser ? 'Salvato sul telefono e sul tuo account ✓' : 'Salvato ✓';
+    statusEl.textContent = cloudUser ? 'Salvato sul tuo account ✓' : 'Salvato solo su questo telefono ✓';
     setTimeout(function () { statusEl.textContent = ''; }, 2500);
   });
   document.getElementById('btnClearNote').addEventListener('click', function () {
@@ -1365,173 +2275,28 @@ document.getElementById('btnTranslate').addEventListener('click', function () {
 })();
 
 // ============================================================
-// ASSISTENTE — capisce domande semplici e apre subito la voce giusta
-// ============================================================
-// Nota onesta: questo è un riconoscimento "a pattern" (regole scritte a mano),
-// non un'intelligenza artificiale generale come Google Assistant. Riconosce
-// domande del tipo "dove si trova X", "cos'è X", "chi è X" ed estrae X; per
-// tutto il resto usa l'intera frase come ricerca su Wikipedia. Per capire
-// davvero qualsiasi domanda servirebbe collegare un servizio di AI vero e
-// proprio (es. le API di Claude), che richiede una chiave e un costo.
-function loadHistory() {
-  try { return JSON.parse(localStorage.getItem('bussola2009_history') || '[]'); }
-  catch (e) { return []; }
-}
-function saveHistory(list, skipCloud) {
-  localStorage.setItem('bussola2009_history', JSON.stringify(list));
-  if (!skipCloud) cloudSave({ history: list });
-  renderHistory(list);
-}
-function addToHistory(q) {
-  var list = loadHistory();
-  list.unshift({ q: q, t: Date.now() });
-  list = list.slice(0, 200);
-  saveHistory(list);
-}
-function renderHistory(list) {
-  var el = document.getElementById('assistHistoryList');
-  if (!list || !list.length) {
-    el.innerHTML = '<p class="status">Nessuna domanda salvata finora.</p>';
-    return;
-  }
-  el.innerHTML = list.slice(0, 30).map(function (item) {
-    var d = new Date(item.t);
-    var when = d.toLocaleDateString('it-IT') + ' ' + d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-    return '<div class="result"><button type="button" class="wikiLinkBtn" data-q="' + escapeHtml(item.q) + '">' + escapeHtml(item.q) + '</button><br><span class="meta">' + when + '</span></div>';
-  }).join('');
-  el.querySelectorAll('.wikiLinkBtn').forEach(function (btn) {
-    btn.addEventListener('click', function () { smartAsk(btn.dataset.q, true); });
-  });
-}
-
-function extractSubject(q) {
-  var patterns = [
-    /^dove\s+(si trova|si trovano|è|sono)\s+(.+)/i,
-    /^(cos'è|cos e|cosa è|cosa sono|che cos'è)\s+(.+)/i,
-    /^chi\s+(è|era|sono|erano)\s+(.+)/i,
-    /^quando\s+(è|era)\s+(.+)/i
-  ];
-  for (var i = 0; i < patterns.length; i++) {
-    var m = q.match(patterns[i]);
-    if (m) return m[m.length - 1].replace(/[?.!]+$/, '').trim();
-  }
-  return q.replace(/[?.!]+$/, '').trim();
-}
-
-function smartAsk(rawQuery, skipHistory) {
-  var q = rawQuery.trim();
-  if (!q) return;
-  var statusEl = document.getElementById('assistStatus');
-  var listEl = document.getElementById('assistResultList');
-  var subject = extractSubject(q);
-
-  statusEl.className = 'status';
-  statusEl.textContent = 'Cerco «' + subject + '»…';
-  listEl.innerHTML = '';
-  if (!skipHistory) addToHistory(q);
-
-  fetch('https://it.wikipedia.org/w/api.php?action=opensearch&search=' + encodeURIComponent(subject) + '&limit=5&namespace=0&format=json&origin=*')
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var titles = data[1], links = data[3];
-      if (!titles.length) {
-        statusEl.className = 'status err';
-        statusEl.textContent = 'Non ho trovato nulla su «' + subject + '». Prova a riformulare.';
-        return;
-      }
-      statusEl.textContent = '';
-      // Apro direttamente il risultato migliore, come farebbe un assistente vocale.
-      openAssistArticle(titles[0], links[0]);
-      if (titles.length > 1) {
-        listEl.innerHTML = '<p class="status" style="margin-top:10px;">Altri risultati possibili:</p>' +
-          titles.slice(1).map(function (t, i) {
-            return '<div class="result"><button type="button" class="wikiLinkBtn" data-title="' + escapeHtml(t) + '" data-url="' + links[i + 1] + '"><b>' + escapeHtml(t) + '</b></button></div>';
-          }).join('');
-        listEl.querySelectorAll('.wikiLinkBtn').forEach(function (btn) {
-          btn.addEventListener('click', function () { openAssistArticle(btn.dataset.title, btn.dataset.url); });
-        });
-      }
-    })
-    .catch(function () {
-      statusEl.className = 'status err';
-      statusEl.textContent = 'Servizio non raggiungibile in questo momento.';
-    });
-}
-
-function openAssistArticle(title, fallbackUrl) {
-  document.getElementById('assistViewChat').style.display = 'none';
-  var articleView = document.getElementById('assistViewArticle');
-  var contentEl = document.getElementById('assistArticleContent');
-  articleView.style.display = 'block';
-  contentEl.innerHTML = '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div><p>Caricamento della voce…</p>';
-
-  fetch('https://it.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title))
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var pageUrl = (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || fallbackUrl;
-      var thumb = data.thumbnail ? '<img class="wiki2009-thumb" src="' + data.thumbnail.source + '" alt="">' : '';
-      var extract = data.extract_html || ('<p>' + escapeHtml(data.extract || 'Nessuna anteprima disponibile.') + '</p>');
-      contentEl.innerHTML =
-        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
-        '<h1>' + escapeHtml(data.title || title) + '</h1>' +
-        thumb + extract +
-        '<div class="wiki2009-catbar">Fonte: Wikipedia in italiano · <a href="' + pageUrl + '" target="_blank">Leggi l\u2019articolo completo →</a></div>';
-    })
-    .catch(function () {
-      contentEl.innerHTML =
-        '<div class="wiki2009-head"><span class="wiki2009-logo">Wikipedia</span><span class="wiki2009-tagline">L\u2019enciclopedia libera</span></div>' +
-        '<p class="status err">Impossibile caricare l\u2019anteprima della voce.</p>' +
-        '<div class="wiki2009-catbar"><a href="' + fallbackUrl + '" target="_blank">Apri comunque su Wikipedia →</a></div>';
-    });
-}
-
-document.getElementById('assistForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  var input = document.getElementById('assistInput');
-  smartAsk(input.value);
-  input.value = '';
-});
-document.getElementById('btnAssistBack').addEventListener('click', function () {
-  document.getElementById('assistViewArticle').style.display = 'none';
-  document.getElementById('assistViewChat').style.display = 'block';
-});
-document.getElementById('btnClearHistory').addEventListener('click', function () {
-  if (confirm('Svuotare la cronologia delle domande?')) saveHistory([]);
-});
-document.getElementById('btnDownloadHistory').addEventListener('click', function () {
-  var list = loadHistory();
-  if (!list.length) return;
-  var lines = list.map(function (item) {
-    var d = new Date(item.t);
-    return '[' + d.toLocaleString('it-IT') + '] ' + item.q;
-  }).join('\n');
-  var blob = new Blob([lines], { type: 'text/plain;charset=utf-8' });
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = 'cronologia-bussola.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-});
-renderHistory(loadHistory());
-
-// ============================================================
-// 10) IMPOSTAZIONI — lettura/scrittura preferenze
+// 11) IMPOSTAZIONI — lettura/scrittura preferenze (locali + account)
 // ============================================================
 (function () {
   var s = loadSettings();
-  document.getElementById('setCity').value = s.city || '';
-  document.getElementById('setAuddToken').value = s.auddToken || '';
-  var unit = s.tempUnit || 'C';
+  applySettingsToUI(s);
 
   document.querySelectorAll('#chipsTempUnit .chip').forEach(function (c) {
-    c.classList.toggle('is-active', c.dataset.v === unit);
     c.addEventListener('click', function () {
       document.querySelectorAll('#chipsTempUnit .chip').forEach(function (x) { x.classList.remove('is-active'); });
       c.classList.add('is-active');
     });
+  });
+
+  document.querySelectorAll('#chipsTheme .chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      document.querySelectorAll('#chipsTheme .chip').forEach(function (x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
+      applyTheme(c.dataset.v, document.getElementById('customColorPicker').value); // anteprima immediata, salvata al tocco di "Salva"
+    });
+  });
+  document.getElementById('customColorPicker').addEventListener('input', function () {
+    applyTheme('personalizzato', this.value);
   });
 
   document.getElementById('btnSaveSettings').addEventListener('click', function () {
@@ -1540,29 +2305,32 @@ renderHistory(loadHistory());
     newSettings.auddToken = document.getElementById('setAuddToken').value.trim();
     var activeUnit = document.querySelector('#chipsTempUnit .chip.is-active');
     newSettings.tempUnit = activeUnit ? activeUnit.dataset.v : 'C';
+    var activeTheme = document.querySelector('#chipsTheme .chip.is-active');
+    newSettings.theme = activeTheme ? activeTheme.dataset.v : 'blu';
+    newSettings.customColor = document.getElementById('customColorPicker').value;
     saveSettingsObj(newSettings);
+
+    // Il token AudD resta sempre e solo sul telefono: non lo mandiamo mai in cloud.
+    var cloudSettings = Object.assign({}, newSettings);
+    delete cloudSettings.auddToken;
+    cloudSave({ settings: cloudSettings });
 
     var st = document.getElementById('settingsStatus');
     st.className = 'status';
-    st.textContent = 'Impostazioni salvate ✓';
-    setTimeout(function () { st.textContent = ''; }, 2000);
+    st.textContent = cloudUser ? 'Impostazioni salvate sul tuo account ✓' : 'Impostazioni salvate su questo telefono ✓';
+    setTimeout(function () { st.textContent = ''; }, 2500);
   });
 
   document.getElementById('btnClearAll').addEventListener('click', function () {
-    if (confirm('Cancellare tutte le impostazioni, gli appunti e la cronologia salvati su questo telefono?')) {
+    if (confirm('Cancellare tutte le impostazioni e gli appunti salvati su questo telefono? (Se hai un account collegato, sull\u2019account restano.)')) {
       localStorage.removeItem('bussola2009_settings');
       localStorage.removeItem('bussola2009_notes');
-      localStorage.removeItem('bussola2009_history');
-      document.getElementById('setCity').value = '';
-      document.getElementById('setAuddToken').value = '';
+      applySettingsToUI({});
       document.getElementById('notepadArea').value = '';
-      renderHistory([]);
-      document.querySelectorAll('#chipsTempUnit .chip').forEach(function (x) { x.classList.remove('is-active'); });
-      document.querySelector('#chipsTempUnit .chip[data-v="C"]').classList.add('is-active');
 
       var st = document.getElementById('settingsStatus');
       st.className = 'status';
-      st.textContent = 'Dati cancellati.';
+      st.textContent = 'Dati cancellati da questo telefono.';
     }
   });
 })();
